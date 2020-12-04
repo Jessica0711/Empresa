@@ -2,7 +2,9 @@ package br.com.contmatic.model.empresa;
 
 import java.math.BigDecimal;
 
-public class Funcionario {
+import br.com.contmatic.model.utils.Auditoria;
+
+public class Funcionario extends Auditoria {
 
 	private String nome;
 
@@ -46,11 +48,11 @@ public class Funcionario {
 	}
 
 	public String getCargo() {
-		return cargo;
+		return this.cargo;
 	}
 
 	public String getCPF() {
-		return cpf;
+		return this.cpf;
 	}
 
 	public void setCPF(String cpf) {
@@ -61,7 +63,7 @@ public class Funcionario {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
+		result = prime * result + ((this.cpf == null) ? 0 : this.cpf.hashCode());
 		return result;
 	}
 
@@ -74,16 +76,17 @@ public class Funcionario {
 		if (getClass() != obj.getClass())
 			return false;
 		Funcionario other = (Funcionario) obj;
-		if (cpf == null) {
+		if (this.cpf == null) {
 			if (other.cpf != null)
 				return false;
-		} else if (!cpf.equals(other.cpf))
+		} else if (!this.cpf.equals(other.cpf))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Funcionario(a) " + nome + ", CPF: " + cpf + ", salario: " + salario + ", cargo: " + cargo;
+		return "Funcionario(a) " + this.nome + ", CPF: " + this.cpf + ", salario: " + this.salario + ", this.cargo: "
+				+ this.cargo;
 	}
 }

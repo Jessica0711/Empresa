@@ -17,8 +17,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.com.contmatic.model.produto.Produto;
-
 public class ProdutoTest {
 
 	private Produto produto;
@@ -30,11 +28,7 @@ public class ProdutoTest {
 
 	@Before
 	public void setUp() {
-		String nome = "Shorts";
-		String marca = "Camaleon";
-		BigDecimal preco = new BigDecimal("39.99");
-		long codigoProduto = 3444;
-		produto = new Produto(nome, marca, preco, codigoProduto);
+		produto = new Produto("Shorts", "Camaleon", new BigDecimal("39.99"), 3444L);
 	}
 
 	@Test
@@ -54,7 +48,7 @@ public class ProdutoTest {
 
 	@Test
 	public void should_return_true_to_produto_is_not_null() {
-		assertNotNull(produto.getcodigo());
+		assertNotNull(produto.getCodigo());
 	}
 
 	@Test
@@ -89,35 +83,35 @@ public class ProdutoTest {
 
 	@Test
 	public void should_return_true_to_correct_input_codigoProduto() {
-		assertTrue(produto.getcodigo() == (3444));
+		assertTrue(produto.getCodigo() == (3444));
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_codigoProduto() {
-		assertThat(produto.getcodigo(), not(3445));
+		assertThat(produto.getCodigo(), not(3445));
 	}
 
 	@Test
 	public void should_return_true_to_the_same_hashcode_class_produto() {
-		Produto outroProduto = new Produto("Shorts", "Camaleon", new BigDecimal("39.99"), 3444);
+		Produto outroProduto = new Produto("Shorts", "Camaleon", new BigDecimal("39.99"), 3444L);
 		assertEquals(produto.hashCode(), outroProduto.hashCode());
 	}
 
 	@Test
 	public void should_return_false_to_differents_hashcode_class_Produto() {
-		Produto outroProduto = new Produto("Shorts", "B2K", new BigDecimal("46.99"), 3445);
+		Produto outroProduto = new Produto("Shorts", "B2K", new BigDecimal("46.99"), 3445L);
 		assertFalse(produto.hashCode() == outroProduto.hashCode());
 	}
 
 	@Test
 	public void should_return_true_to_the_same_equals_class_produto() {
-		Produto outro_produto = new Produto("Shorts", "Camaleon", new BigDecimal("39.99"), 3444);
+		Produto outro_produto = new Produto("Shorts", "Camaleon", new BigDecimal("39.99"), 3444L);
 		assertTrue(produto.equals(outro_produto));
 	}
 
 	@Test
 	public void should_return_true_different_equals_class_produto() {
-		Produto outro_produto = new Produto("Shorts", "Camaleon", new BigDecimal("59.99"), 3544);
+		Produto outro_produto = new Produto("Shorts", "Camaleon", new BigDecimal("59.99"), 3544L);
 		assertFalse(produto.equals(outro_produto));
 	}
 

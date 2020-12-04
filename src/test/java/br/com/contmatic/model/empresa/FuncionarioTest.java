@@ -19,8 +19,6 @@ import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 
-import br.com.contmatic.model.empresa.Funcionario;
-
 @FixMethodOrder(NAME_ASCENDING)
 public class FuncionarioTest {
 	private Funcionario funcionario;

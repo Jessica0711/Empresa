@@ -2,7 +2,9 @@ package br.com.contmatic.model.produto;
 
 import java.math.BigDecimal;
 
-public class Produto {
+import br.com.contmatic.model.utils.Auditoria;
+
+public class Produto extends Auditoria {
 
 	private String nome;
 
@@ -10,9 +12,9 @@ public class Produto {
 
 	private BigDecimal preco;
 
-	private long codigo;
+	private Long codigo;
 
-	public Produto(String nome, String marca, BigDecimal preco, long codigoProduto) {
+	public Produto(String nome, String marca, BigDecimal preco, Long codigoProduto) {
 		setNome(nome);
 		setMarca(marca);
 		setPreco(preco);
@@ -23,7 +25,7 @@ public class Produto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (codigo ^ (codigo >>> 32));
+		result = prime * result + (int) (this.codigo ^ (this.codigo >>> 32));
 		return result;
 	}
 
@@ -36,7 +38,7 @@ public class Produto {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		if (codigo != other.codigo)
+		if (this.codigo != other.codigo)
 			return false;
 		return true;
 	}
@@ -46,7 +48,7 @@ public class Produto {
 
 	}
 
-	public void setcodigo(long codigoProduto) {
+	public void setcodigo(Long codigoProduto) {
 		this.codigo = codigoProduto;
 	}
 
@@ -65,24 +67,25 @@ public class Produto {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public String getMarca() {
-		return marca;
+		return this.marca;
 	}
 
 	public BigDecimal getPreco() {
-		return preco;
+		return this.preco;
 	}
 
-	public long getcodigo() {
-		return codigo;
+	public Long getCodigo() {
+		return this.codigo;
 	}
 
 	@Override
 	public String toString() {
-		return "Produto " + nome + ", marca: " + marca + ", preço: " + preco + ", codigoProduto de produto: " + codigo;
+		return "Produto " + this.nome + ", marca: " + this.marca + ", preço: " + this.preco
+				+ ", codigoProduto de produto: " + this.codigo;
 	}
 
 }

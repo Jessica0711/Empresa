@@ -15,8 +15,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import br.com.contmatic.model.endereco.Endereco;
-
 public class EnderecoTest {
 	private Endereco endereco;
 
@@ -32,7 +30,7 @@ public class EnderecoTest {
 
 	@Before
 	public void setUp() {
-		endereco = new Endereco("Avenida", 01, "Tatuape", "01234-567", "Apt 07");
+		endereco = new Endereco("Avenida", 01, "Tatuape", "01234-567", "Apt 07", "São Paulo", "São Paulo");
 	}
 
 	@After
@@ -63,6 +61,16 @@ public class EnderecoTest {
 	@Test
 	public void should_return_true_to_complemento_not_null() {
 		assertNotNull(endereco.getComplemento());
+	}
+	
+	@Test
+	public void should_return_true_to_cidade_not_null() {
+		assertNotNull(endereco.getCidade());
+	}
+	
+	@Test
+	public void should_return_true_to_estado_not_null() {
+		assertNotNull(endereco.getEstado());
 	}
 
 	@Test
@@ -117,19 +125,19 @@ public class EnderecoTest {
 
 	@Test
 	public void should_return_true_to_the_same_hashcode_class_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "Tatuape", "01234-567", "Apt 07");
+		Endereco outroEndereco = new Endereco("Avenida", 01, "Tatuape", "01234-567");
 		assertEquals(endereco.hashCode(), outroEndereco.hashCode());
 	}
 
 	@Test
 	public void should_return_false_to_differents_hashcode_class_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "Tatuape", "01234-555", "Apt 07");
+		Endereco outroEndereco = new Endereco("Avenida", 01, "Tatuape", "01234-555");
 		assertFalse(endereco.hashCode() == outroEndereco.hashCode());
 	}
 
 	@Test
 	public void should_return_true_to_same_equals_class_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "Tatuape", "01234-567", "Apt 07");
+		Endereco outroEndereco = new Endereco("Avenida", 01, "Tatuape", "01234-567");
 		assertTrue(endereco.equals(outroEndereco));
 	}
 

@@ -20,7 +20,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import br.com.contmatic.model.empresa.Empresa;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
 
@@ -61,8 +60,8 @@ public class EmpresaTest {
 	@Before
 	public void setUp_produtos() {
 		produtos = new ArrayList<Produto>();
-		Produto produto01 = new Produto("Shorts", "Camaleon", BigDecimal.valueOf(59.99), 3544);
-		Produto produto02 = new Produto("Calça", "Camaleon", BigDecimal.valueOf(79.99), 3466);
+		Produto produto01 = new Produto("Shorts", "Camaleon", BigDecimal.valueOf(59.99), 3544L);
+		Produto produto02 = new Produto("Calça", "Camaleon", BigDecimal.valueOf(79.99), 3466L);
 		produtos.add(produto01);
 		produtos.add(produto02);
 	}

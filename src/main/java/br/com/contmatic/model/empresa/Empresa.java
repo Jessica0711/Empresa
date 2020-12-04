@@ -4,8 +4,9 @@ import java.util.List;
 
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
+import br.com.contmatic.model.utils.Auditoria;
 
-public class Empresa {
+public class Empresa extends Auditoria {
 
 	private String nome;
 
@@ -18,8 +19,8 @@ public class Empresa {
 	private List<Produto> produtos;
 
 	public Empresa(String nome, String cnpj) {
-		setNome(nome);
-		setCnpj(cnpj);
+		this.setNome(nome);
+		this.setCnpj(cnpj);
 	}
 
 	public void setNome(String nome) {
@@ -30,7 +31,7 @@ public class Empresa {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setCnpj(String cnpj) {
@@ -38,7 +39,7 @@ public class Empresa {
 	}
 
 	public String getCnpj() {
-		return cnpj;
+		return this.cnpj;
 	}
 
 	public void setEndereco(Endereco endereco) {
@@ -49,11 +50,11 @@ public class Empresa {
 	}
 
 	public Endereco getEndereco() {
-		return endereco;
+		return this.endereco;
 	}
 
 	public List<Funcionario> getFuncionarios() {
-		return funcionarios;
+		return this.funcionarios;
 	}
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
@@ -61,7 +62,7 @@ public class Empresa {
 	}
 
 	public List<Produto> getProdutos() {
-		return produtos;
+		return this.produtos;
 	}
 
 	public void setProdutos(List<Produto> produtos) {
@@ -72,7 +73,7 @@ public class Empresa {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cnpj == null) ? 0 : cnpj.hashCode());
+		result = prime * result + ((this.cnpj == null) ? 0 : this.cnpj.hashCode());
 		return result;
 	}
 
@@ -85,18 +86,19 @@ public class Empresa {
 		if (getClass() != obj.getClass())
 			return false;
 		Empresa other = (Empresa) obj;
-		if (cnpj == null) {
+		if (this.cnpj == null) {
 			if (other.cnpj != null)
 				return false;
-		} else if (!cnpj.equals(other.cnpj))
+		} else if (!this.cnpj.equals(other.cnpj)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Empresa: " + nome + ", cnpj: " + cnpj + ", endereco: " + endereco + ", funcionarios: " + funcionarios
-				+ ", produtos: " + produtos;
+		return "Empresa: " + this.nome + ", cnpj: " + this.cnpj + ", endereco: " + this.endereco + ", funcionarios: "
+				+ this.funcionarios + ", produtos: " + this.produtos;
 	}
 
 }

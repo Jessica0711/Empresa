@@ -1,10 +1,12 @@
 package br.com.contmatic.model.endereco;
 
-public class Endereco {
+import br.com.contmatic.model.utils.Auditoria;
+
+public class Endereco extends Auditoria {
 
 	private String rua;
 
-	private int numero;
+	private Integer numero;
 
 	private String bairro;
 
@@ -12,24 +14,31 @@ public class Endereco {
 
 	private String complemento;
 
-	public Endereco(String rua, int numero, String bairro, String cep) {
+	private String cidade;
+
+	private String estado;
+
+	public Endereco(String rua, Integer numero, String cidade, String cep) {
 		setRua(rua);
 		setNumero(numero);
-		setBairro(bairro);
+		setCidade(cidade);
 		setCep(cep);
-		setComplemento("Não possui");
 	}
 
-	public Endereco(String rua, int numero, String bairro, String cep, String complemento) {
+	public Endereco(String rua, Integer numero, String bairro, String cep, String complemento, String cidade,
+			String estado) {
 		setRua(rua);
 		setNumero(numero);
 		setBairro(bairro);
+		setCidade(cidade);
 		setCep(cep);
 		setComplemento(complemento);
+		setCidade(cidade);
+		setEstado(estado);
 	}
 
 	public String getRua() {
-		return rua;
+		return this.rua;
 	}
 
 	public void setRua(String rua) {
@@ -40,7 +49,7 @@ public class Endereco {
 	}
 
 	public int getNumero() {
-		return numero;
+		return this.numero;
 	}
 
 	public void setNumero(int numero) {
@@ -48,7 +57,7 @@ public class Endereco {
 	}
 
 	public String getBairro() {
-		return bairro;
+		return this.bairro;
 	}
 
 	public void setBairro(String bairro) {
@@ -59,7 +68,7 @@ public class Endereco {
 	}
 
 	public String getCep() {
-		return cep;
+		return this.cep;
 	}
 
 	public void setCep(String cep) {
@@ -67,7 +76,7 @@ public class Endereco {
 	}
 
 	public String getComplemento() {
-		return complemento;
+		return this.complemento;
 	}
 
 	public void setComplemento(String complemento) {
@@ -77,12 +86,28 @@ public class Endereco {
 		this.complemento = complemento;
 	}
 
+	public String getCidade() {
+		return this.cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
-		result = prime * result + numero;
+		result = prime * result + ((this.cep == null) ? 0 : this.cep.hashCode());
+		result = prime * result + this.numero;
 		return result;
 	}
 
@@ -95,19 +120,21 @@ public class Endereco {
 		if (getClass() != obj.getClass())
 			return false;
 		Endereco other = (Endereco) obj;
-		if (cep == null) {
+		if (this.cep == null) {
 			if (other.cep != null)
 				return false;
-		} else if (!cep.equals(other.cep))
+		} else if (!this.cep.equals(other.cep)) {
 			return false;
-		if (numero != other.numero)
+		}
+		if (this.numero != other.numero)
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Endereço: " + rua + ", " + numero + ", " + bairro + ", CEP: " + cep + ", complemento: " + complemento;
+		return "Endereço: " + this.rua + ", " + this.numero + ", " + this.bairro + ", CEP: " + this.cep
+				+ ", complemento: " + this.complemento;
 	}
 
 }

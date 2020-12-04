@@ -1,8 +1,9 @@
 package br.com.contmatic.model.empresa;
 
 import br.com.contmatic.model.endereco.Endereco;
+import br.com.contmatic.model.utils.Auditoria;
 
-public class Cliente {
+public class Cliente extends Auditoria {
 
 	private String nome;
 
@@ -16,7 +17,7 @@ public class Cliente {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -26,7 +27,7 @@ public class Cliente {
 	}
 
 	public String getCpf() {
-		return cpf;
+		return this.cpf;
 	}
 
 	public void setCpf(String cpf) {
@@ -34,7 +35,7 @@ public class Cliente {
 	}
 
 	public Endereco getEndereco() {
-		return endereco;
+		return this.endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
@@ -58,17 +59,17 @@ public class Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (cpf == null) {
+		if (this.cpf == null) {
 			if (other.cpf != null)
 				return false;
-		} else if (!cpf.equals(other.cpf))
+		} else if (!this.cpf.equals(other.cpf))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente: " + nome + ", CPF: " + cpf + ", " + endereco;
+		return "Cliente: " + this.nome + ", CPF: " + this.cpf + ", " + this.endereco;
 	}
 
 }
