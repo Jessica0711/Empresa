@@ -36,3 +36,4 @@ target/classes/.empity
 target/classes/br/com/contmatic/model/auditoria/Auditoria.class
 target/classes/br/com/contmatic/model/utils/Validacao.class
 target/test-classes/br/com/contmatic/model/auditoria/AuditoriaTest.class
+target/classes/.empty
