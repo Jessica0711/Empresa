@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,20 +40,26 @@ public class EmpresaTest {
 	@Before
 	public void setUp() {
 		String nome = "Contmatic";
-		String cnpj = "123456789";
+		String cnpj = "50931090000102";
 		empresa = new Empresa(nome, cnpj);
+		empresa.setDataAlteracao(DateTime.parse("2020-12-05"));
+		empresa.setDataCadastro(DateTime.parse("2020-12-05"));
+		empresa.setCriadoPor("jessica");
+		empresa.setIpCriadoPor("127.0.0.1");
+		empresa.setUltimaModificacao("jessica");
+		empresa.setIpUltimaModificacao("127.0.0.1");
 	}
 
 	@Before
 	public void setUp_endereco() {
-		empresa.setEndereco(new Endereco("Avenida", 1, "Tatuape", "01234-567"));
+		empresa.setEndereco(new Endereco("Avenida", 1, "Tatuape", "01234567"));
 	}
 
 	@Before
 	public void setUp_funcionarios() {
 		funcionarios = new ArrayList<Funcionario>();
-		Funcionario funcionario1 = new Funcionario("Maria Silva", "444.666.888-80", BigDecimal.valueOf(1500.00), "Vendedora");
-		Funcionario funcionario2 = new Funcionario("João Santos", "777.111.444-08", BigDecimal.valueOf(1500.00), "Vendedor");
+		Funcionario funcionario1 = new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1500.00), "Vendedora");
+		Funcionario funcionario2 = new Funcionario("João Santos", "78753312007", BigDecimal.valueOf(1500.00), "Vendedor");
 		funcionarios.add(funcionario1);
 		funcionarios.add(funcionario2);
 	}
@@ -92,6 +99,16 @@ public class EmpresaTest {
 		empresa.setProdutos(produtos);
 		assertNotNull(empresa.getProdutos());
 	}
+	
+	@Test
+	public void should_return_true_to_auditoria_is_not_null() {
+		assertNotNull(empresa.getDataAlteracao());
+		assertNotNull(empresa.getDataCadastro());
+		assertNotNull(empresa.getCriadoPor());
+		assertNotNull(empresa.getUltimaModificacao());
+		assertNotNull(empresa.getIpCriadoPor());
+		assertNotNull(empresa.getIpUltimaModificacao());
+	}
 
 	@Test
 	public void should_return_true_to_correct_input_nome() {
@@ -105,7 +122,7 @@ public class EmpresaTest {
 
 	@Test
 	public void should_return_true_to_correct_input_cnpj() {
-		assertThat(empresa.getCnpj(), is("123456789"));
+		assertThat(empresa.getCnpj(), is("50931090000102"));
 	}
 
 	@Test
@@ -115,13 +132,13 @@ public class EmpresaTest {
 
 	@Test
 	public void should_return_true_to_correct_input_endereco() {
-		Endereco endereco = new Endereco("Avenida", 1, "Tatuape", "01234-567");
+		Endereco endereco = new Endereco("Avenida", 1, "Tatuape", "01234567");
 		assertThat(empresa.getEndereco(), is(endereco));
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_endereco() {
-		Endereco endereco = new Endereco("Avenida", 1, "Tatuape", "01212-888");
+		Endereco endereco = new Endereco("Avenida", 1, "Tatuape", "01212888");
 		assertThat(empresa.getEndereco(), not(endereco));
 	}
 
@@ -151,25 +168,25 @@ public class EmpresaTest {
 
 	@Test
 	public void should_return_true_to_the_same_hashcode_class_empresa() {
-		Empresa outraEmpresa = new Empresa("Contmatic", "123456789");
+		Empresa outraEmpresa = new Empresa("Contmatic", "50931090000102");
 		assertEquals(empresa.hashCode(), outraEmpresa.hashCode());
 	}
 
 	@Test
 	public void should_return_false_to_different_hashcode_class_empresa() {
-		Empresa outraEmpresa = new Empresa("Contmatic", "123456788");
+		Empresa outraEmpresa = new Empresa("Contmatic", "60223379000120");
 		assertFalse(empresa.hashCode() == outraEmpresa.hashCode());
 	}
 
 	@Test
 	public void should_return_true_to_same_equals_class_empresa() {
-		Empresa outraEmpresa = new Empresa("Contmatic", "123456789");
+		Empresa outraEmpresa = new Empresa("Contmatic", "50931090000102");
 		assertTrue(empresa.equals(outraEmpresa));
 	}
 
 	@Test
 	public void should_return_false_to_equals_with_differents_empresa() {
-		Empresa outraEmpresa = new Empresa("Softmatic", "123456788");
+		Empresa outraEmpresa = new Empresa("Softmatic", "60223379000120");
 		assertFalse(empresa.equals(outraEmpresa));
 	}
 
@@ -177,25 +194,6 @@ public class EmpresaTest {
 	public void should_return_false_when_equals_compare_with_a_null_class() {
 		Empresa outraEmpresa = null;
 		assertFalse(empresa.equals(outraEmpresa));
-	}
-
-	@Test
-	public void should_return_false_to_equals_from_a_null_cnpj() {
-		Empresa outraEmpresa = new Empresa("Contmatic", null);
-		assertFalse(outraEmpresa.equals(empresa));
-	}
-
-	@Test
-	public void should_return_false_when_hashcode_compare_with_a_null_cnpj() {
-		Empresa outraEmpresa = new Empresa("Contmatic", null);
-		assertFalse(empresa.hashCode() == outraEmpresa.hashCode());
-	}
-
-	@Test
-	public void should_return_true_when_equals_with_two_cnpj_null() {
-		Empresa empresa01 = new Empresa("Contmatic", null);
-		Empresa empresa02 = new Empresa("Contmatic", null);
-		assertTrue(empresa01.equals(empresa02));
 	}
 
 	@Test
@@ -218,14 +216,43 @@ public class EmpresaTest {
 		empresa.setNome(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_to_empty_nome() {
 		empresa.setNome(" ");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
+		empresa.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
+	}
+	
+	public void should_return_a_exception_when_cpf_is_null() {
+		empresa.setCnpj(null);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_a_sequence_with_the_same_algoritmo() {
+		empresa.setCnpj("33333333333333");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_invalid() {
+		empresa.setCnpj("12345678901234");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_empty() {
+		empresa.setCnpj(" ");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_to_endereco_null() {
 		empresa.setEndereco(null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void should_return_a_exception_to_funcionarios_null() {
+		empresa.setFuncionarios(null);
 	}
 
 	@Test

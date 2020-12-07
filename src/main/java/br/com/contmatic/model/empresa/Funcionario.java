@@ -2,7 +2,8 @@ package br.com.contmatic.model.empresa;
 
 import java.math.BigDecimal;
 
-import br.com.contmatic.model.utils.Auditoria;
+import br.com.contmatic.model.auditoria.Auditoria;
+import br.com.contmatic.model.utils.Validacao;
 
 public class Funcionario extends Auditoria {
 
@@ -22,9 +23,9 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new IllegalArgumentException("Nome não pode estar vazio");
-		}
+		Validacao.validarCampoNulo(nome, "Nome");
+		Validacao.validarCampoVazio(nome, "Nome");
+		Validacao.validarTamanho(1, 60, nome);
 		this.nome = nome;
 	}
 
@@ -33,6 +34,10 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setSalario(BigDecimal salario) {
+		Validacao.validarCampoNulo(salario, "Salário");
+		if (salario.doubleValue() <= 0) {
+			throw new IllegalStateException("Sálario deve ser maior que 0");
+		}
 		this.salario = salario;
 	}
 
@@ -41,9 +46,9 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setCargo(String cargo) {
-		if (cargo == null || cargo.trim().isEmpty()) {
-			throw new IllegalArgumentException("Cargo não pode estar vazio");
-		}
+		Validacao.validarCampoNulo(cargo, "Cargo");
+		Validacao.validarCampoVazio(cargo, "Cargo");
+		Validacao.validarTamanho(1, 60, cargo);
 		this.cargo = cargo;
 	}
 
@@ -56,6 +61,8 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setCPF(String cpf) {
+		Validacao.validarCampoNulo(cpf, "CPF");
+		Validacao.validarCPF(cpf);
 		this.cpf = cpf;
 	}
 
@@ -79,8 +86,9 @@ public class Funcionario extends Auditoria {
 		if (this.cpf == null) {
 			if (other.cpf != null)
 				return false;
-		} else if (!this.cpf.equals(other.cpf))
+		} else if (!this.cpf.equals(other.cpf)) {
 			return false;
+		}
 		return true;
 	}
 

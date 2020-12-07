@@ -11,6 +11,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -29,6 +30,12 @@ public class ProdutoTest {
 	@Before
 	public void setUp() {
 		produto = new Produto("Shorts", "Camaleon", new BigDecimal("39.99"), 3444L);
+		produto.setDataAlteracao(DateTime.parse("2020-12-05"));
+		produto.setDataCadastro(DateTime.parse("2020-12-05"));
+		produto.setCriadoPor("jessica");
+		produto.setIpCriadoPor("127.0.0.1");
+		produto.setUltimaModificacao("jessica");
+		produto.setIpUltimaModificacao("127.0.0.1");
 	}
 
 	@Test
@@ -47,8 +54,18 @@ public class ProdutoTest {
 	}
 
 	@Test
-	public void should_return_true_to_produto_is_not_null() {
+	public void should_return_true_to_codigo_is_not_null() {
 		assertNotNull(produto.getCodigo());
+	}
+	
+	@Test
+	public void should_return_true_to_auditoria_is_not_null() {
+		assertNotNull(produto.getDataAlteracao());
+		assertNotNull(produto.getDataCadastro());
+		assertNotNull(produto.getCriadoPor());
+		assertNotNull(produto.getUltimaModificacao());
+		assertNotNull(produto.getIpCriadoPor());
+		assertNotNull(produto.getIpUltimaModificacao());
 	}
 
 	@Test
@@ -151,14 +168,49 @@ public class ProdutoTest {
 		assertThat(produto.toString(), containsString("preço"));
 	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_name_is_null() {
 		produto.setNome(null);
 	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_name_is_empty() {
+		produto.setNome("");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
+		produto.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
+	}
 
-	@Test(expected = Exception.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_marca_is_null() {
 		produto.setMarca(null);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_marca_is_empty() {
+		produto.setMarca("");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_marca_has_more_than_60_caracters() {
+		produto.setMarca("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void should_return_a_exception_when_preco_is_null() {
+		produto.setPreco(null);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_marca_is_less_than_0() {
+		produto.setPreco(new BigDecimal("-39.99"));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void should_return_a_exception_when_codigo_is_null() {
+		produto.setCodigo(null);
 	}
 
 	@After

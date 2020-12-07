@@ -12,6 +12,7 @@ import static org.junit.runners.MethodSorters.NAME_ASCENDING;
 
 import java.math.BigDecimal;
 
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -30,11 +31,13 @@ public class FuncionarioTest {
 
 	@Before
 	public void setUp() {
-		String nome = "Maria Silva";
-		BigDecimal salario = new BigDecimal("1500.00");
-		String cargo = "Vendedora";
-		String cpf = "475.614.488-80";
-		funcionario = new Funcionario(nome, cpf, salario, cargo);
+		funcionario = new Funcionario("Maria Silva", "47561448880", new BigDecimal("1500.00"), "Vendedora");
+		funcionario.setDataAlteracao(DateTime.parse("2020-12-05"));
+		funcionario.setDataCadastro(DateTime.parse("2020-12-05"));
+		funcionario.setCriadoPor("jessica");
+		funcionario.setIpCriadoPor("127.0.0.1");
+		funcionario.setUltimaModificacao("jessica");
+		funcionario.setIpUltimaModificacao("127.0.0.1");
 	}
 
 	@Test
@@ -58,6 +61,16 @@ public class FuncionarioTest {
 	}
 
 	@Test
+	public void should_return_true_to_auditoria_is_not_null() {
+		assertNotNull(funcionario.getDataAlteracao());
+		assertNotNull(funcionario.getDataCadastro());
+		assertNotNull(funcionario.getCriadoPor());
+		assertNotNull(funcionario.getUltimaModificacao());
+		assertNotNull(funcionario.getIpCriadoPor());
+		assertNotNull(funcionario.getIpUltimaModificacao());
+	}
+
+	@Test
 	public void shuld_return_true_to_correct_input_nome() {
 		assertThat(funcionario.getNome(), is("Maria Silva"));
 	}
@@ -69,12 +82,12 @@ public class FuncionarioTest {
 
 	@Test
 	public void should_return_true_to_correct_input_salario() {
-		assertTrue(funcionario.getSalario().compareTo(BigDecimal.valueOf(1500.00))==0);
+		assertTrue(funcionario.getSalario().compareTo(BigDecimal.valueOf(1500.00)) == 0);
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_salario() {
-		assertFalse(funcionario.getSalario().compareTo(BigDecimal.valueOf(1550.00))==0);
+		assertFalse(funcionario.getSalario().compareTo(BigDecimal.valueOf(1550.00)) == 0);
 	}
 
 	@Test
@@ -89,42 +102,34 @@ public class FuncionarioTest {
 
 	@Test
 	public void should_return_true_to_correct_input_cpf() {
-		assertThat(funcionario.getCPF(), is("475.614.488-80"));
+		assertThat(funcionario.getCPF(), is("47561448880"));
 	}
 
 	@Test
 	public void should_return_true_to_hashcode_with_same_funcionario() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", "475.614.488-80", BigDecimal.valueOf(1500.00), "Vendedora");
+		Funcionario outroFuncionario = new Funcionario("Maria Silva", "47561448880", BigDecimal.valueOf(1500.00),
+				"Vendedora");
 		assertEquals(funcionario.hashCode(), outroFuncionario.hashCode());
 	}
 
 	@Test
 	public void should_return_false_to_hashcode_with_different_funcionario() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", "574.614.488-80", BigDecimal.valueOf(1500.00), "Gerente");
-		assertFalse(funcionario.hashCode() == outroFuncionario.hashCode());
-	}
-
-	@Test
-	public void should_return_false_when_hashcode_compare_with_a_null_cpf() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", null, BigDecimal.valueOf(1500.00), "Gerente");
+		Funcionario outroFuncionario = new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1500.00),
+				"Gerente");
 		assertFalse(funcionario.hashCode() == outroFuncionario.hashCode());
 	}
 
 	@Test
 	public void should_return_true_to_equals_with_same_funcionario() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", "475.614.488-80", BigDecimal.valueOf(1500.00), "Vendedora");
+		Funcionario outroFuncionario = new Funcionario("Maria Silva", "47561448880", BigDecimal.valueOf(1500.00),
+				"Vendedora");
 		assertTrue(funcionario.equals(outroFuncionario));
 	}
 
 	@Test
 	public void should_return_false_with_equals_different_funcionario() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", "574.614.488-80", BigDecimal.valueOf(1550.00), "Vendedora");
-		assertFalse(funcionario.equals(outroFuncionario));
-	}
-
-	@Test
-	public void should_return_false_to_equals_with_a_null_cpf() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", null, BigDecimal.valueOf(1500.00), "Vendedora");
+		Funcionario outroFuncionario = new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1550.00),
+				"Vendedora");
 		assertFalse(funcionario.equals(outroFuncionario));
 	}
 
@@ -136,13 +141,6 @@ public class FuncionarioTest {
 	@Test
 	public void should_return_false_when_equals_compare_class_with_a_number() {
 		assertFalse(funcionario.equals(new Object()));
-	}
-
-	@Test
-	public void should_return_true_when_equals_with_two_cpf_null() {
-		Funcionario funcionario01 = new Funcionario("João Santos", null, null, "Vendedora");
-		Funcionario funcionario02 = new Funcionario("Maria Silva", null, null, "Vendedora");
-		assertTrue(funcionario01.equals(funcionario02));
 	}
 
 	@Test
@@ -181,26 +179,49 @@ public class FuncionarioTest {
 		assertFalse(funcionario.equals(outroFuncionario));
 	}
 
-	@Test
-	public void should_return_false_when_equals_compare_null_cpf() {
-		Funcionario outro_funcionario = new Funcionario("Maria Silva", null, null, "Vendedora");
-		assertFalse(funcionario.getCPF().equals(outro_funcionario.getCPF()));
-	}
-	
-	@Test
-	public void should_return_false_to_equals_from_a_null_cpf() {
-		Funcionario outroFuncionario = new Funcionario("Maria Silva", null, null, "Vendedora");
-		assertFalse(outroFuncionario.equals(funcionario));
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_name_is_null() {
 		funcionario.setNome(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_name_is_empty() {
 		funcionario.setNome("  ");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
+		funcionario.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void should_return_a_exception_when_cpf_is_null() {
+		funcionario.setCPF(null);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_a_sequence_with_the_same_algoritmo() {
+		funcionario.setCPF("22222222222");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_invalid() {
+		funcionario.setCPF("12345678901");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_empty() {
+		funcionario.setCPF(" ");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void should_return_a_exception_when_salario_is_null() {
+		funcionario.setSalario(null);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_salario_is_less_than_0() {
+		funcionario.setSalario(new BigDecimal("-50.00"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -208,9 +229,14 @@ public class FuncionarioTest {
 		funcionario.setCargo(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cargo_is_empty() {
 		funcionario.setCargo("  ");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cargo_has_more_than_60_caracters() {
+		funcionario.setCargo("cargo maior do que sessenta caracteres. Cargo maior do que sessenta caracteres");
 	}
 
 	@After

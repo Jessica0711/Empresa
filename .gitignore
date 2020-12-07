@@ -33,3 +33,6 @@ target/classes/br/com/contmatic/model/empresa/Funcionario.class
 target/classes/br/com/contmatic/model/empresa/Empresa.class
 target/classes/br/com/contmatic/model/empresa/Cliente.class
 target/classes/.empity
+target/classes/br/com/contmatic/model/auditoria/Auditoria.class
+target/classes/br/com/contmatic/model/utils/Validacao.class
+target/test-classes/br/com/contmatic/model/auditoria/AuditoriaTest.class

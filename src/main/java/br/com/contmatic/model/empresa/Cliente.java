@@ -1,7 +1,8 @@
 package br.com.contmatic.model.empresa;
 
+import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
-import br.com.contmatic.model.utils.Auditoria;
+import br.com.contmatic.model.utils.Validacao;
 
 public class Cliente extends Auditoria {
 
@@ -21,8 +22,9 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		if (nome == null || nome.trim().isEmpty())
-			throw new IllegalArgumentException("Nome não pode estar em branco");
+		Validacao.validarCampoNulo(nome, "Nome");
+		Validacao.validarCampoVazio(nome, "Nome");
+		Validacao.validarTamanho(1, 60, nome);
 		this.nome = nome;
 	}
 
@@ -31,6 +33,8 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setCpf(String cpf) {
+		Validacao.validarCampoNulo(cpf, "CPF");
+		Validacao.validarCPF(cpf);
 		this.cpf = cpf;
 	}
 
@@ -39,6 +43,7 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setEndereco(Endereco endereco) {
+		Validacao.validarCampoNulo(endereco, "Endereço");
 		this.endereco = endereco;
 	}
 
@@ -62,8 +67,9 @@ public class Cliente extends Auditoria {
 		if (this.cpf == null) {
 			if (other.cpf != null)
 				return false;
-		} else if (!this.cpf.equals(other.cpf))
+		} else if (!this.cpf.equals(other.cpf)) {
 			return false;
+		}
 		return true;
 	}
 

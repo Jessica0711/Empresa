@@ -2,9 +2,10 @@ package br.com.contmatic.model.empresa;
 
 import java.util.List;
 
+import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
-import br.com.contmatic.model.utils.Auditoria;
+import br.com.contmatic.model.utils.Validacao;
 
 public class Empresa extends Auditoria {
 
@@ -24,9 +25,9 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new IllegalArgumentException("Nome não pode estar vazio");
-		}
+		Validacao.validarCampoNulo(nome, "Nome");
+		Validacao.validarCampoVazio(nome, "Nome");
+		Validacao.validarTamanho(1, 60, nome);
 		this.nome = nome;
 	}
 
@@ -35,6 +36,8 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setCnpj(String cnpj) {
+		Validacao.validarCampoNulo(cnpj, "CNPJ");
+		Validacao.validarCNPJ(cnpj);
 		this.cnpj = cnpj;
 	}
 
@@ -43,9 +46,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setEndereco(Endereco endereco) {
-		if (endereco == null) {
-			throw new IllegalArgumentException("Endereço não pode estar vazio");
-		}
+		Validacao.validarCampoNulo(endereco, "Endereço");
 		this.endereco = endereco;
 	}
 
@@ -58,6 +59,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
+		Validacao.validarCampoNulo(funcionarios, "Funcionários");
 		this.funcionarios = funcionarios;
 	}
 
@@ -66,6 +68,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setProdutos(List<Produto> produtos) {
+		Validacao.validarCampoNulo(produtos, "Produtos");
 		this.produtos = produtos;
 	}
 

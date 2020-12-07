@@ -1,6 +1,7 @@
 package br.com.contmatic.model.endereco;
 
-import br.com.contmatic.model.utils.Auditoria;
+import br.com.contmatic.model.auditoria.Auditoria;
+import br.com.contmatic.model.utils.Validacao;
 
 public class Endereco extends Auditoria {
 
@@ -18,10 +19,10 @@ public class Endereco extends Auditoria {
 
 	private String estado;
 
-	public Endereco(String rua, Integer numero, String cidade, String cep) {
+	public Endereco(String rua, Integer numero, String estado, String cep) {
 		setRua(rua);
 		setNumero(numero);
-		setCidade(cidade);
+		setEstado(estado);
 		setCep(cep);
 	}
 
@@ -33,7 +34,6 @@ public class Endereco extends Auditoria {
 		setCidade(cidade);
 		setCep(cep);
 		setComplemento(complemento);
-		setCidade(cidade);
 		setEstado(estado);
 	}
 
@@ -42,9 +42,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setRua(String rua) {
-		if (rua == null || rua.trim().isEmpty()) {
-			throw new IllegalArgumentException("Rua não pode estar em branco");
-		}
+		Validacao.validarCampoNulo(rua, "Rua");
+		Validacao.validarCampoVazio(rua, "Rua");
+		Validacao.validarTamanho(1, 70, rua);
 		this.rua = rua;
 	}
 
@@ -52,7 +52,11 @@ public class Endereco extends Auditoria {
 		return this.numero;
 	}
 
-	public void setNumero(int numero) {
+	public void setNumero(Integer numero) {
+		Validacao.validarCampoNulo(numero, "Número");
+		if (numero <= 0) {
+			throw new IllegalStateException("Número deve ser maior que 0");
+		}
 		this.numero = numero;
 	}
 
@@ -61,9 +65,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setBairro(String bairro) {
-		if (bairro == null || bairro.trim().isEmpty()) {
-			throw new IllegalArgumentException("Bairro não pode estar em branco");
-		}
+		Validacao.validarCampoNulo(bairro, "Bairro");
+		Validacao.validarCampoVazio(bairro, "Bairro");
+		Validacao.validarTamanho(1, 60, bairro);
 		this.bairro = bairro;
 	}
 
@@ -72,6 +76,8 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setCep(String cep) {
+		Validacao.validarCampoNulo(cep, "CEP");
+		Validacao.validarCEP(cep);
 		this.cep = cep;
 	}
 
@@ -80,9 +86,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setComplemento(String complemento) {
-		if (complemento == null || complemento.trim().isEmpty()) {
-			throw new IllegalArgumentException("Complemento não pode estar em branco");
-		}
+		Validacao.validarCampoNulo(complemento, "Complemento");
+		Validacao.validarCampoVazio(complemento, "Complemento");
+		Validacao.validarTamanho(0, 50, complemento);
 		this.complemento = complemento;
 	}
 
@@ -91,6 +97,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setCidade(String cidade) {
+		Validacao.validarCampoNulo(cidade, "Cidade");
+		Validacao.validarCampoVazio(cidade, "Cidade");
+		Validacao.validarTamanho(1, 60, cidade);
 		this.cidade = cidade;
 	}
 
@@ -99,6 +108,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setEstado(String estado) {
+		Validacao.validarCampoNulo(estado, "Estado");
+		Validacao.validarCampoVazio(estado, "Estado");
+		Validacao.validarTamanho(2, 40, estado);
 		this.estado = estado;
 	}
 
@@ -106,8 +118,9 @@ public class Endereco extends Auditoria {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((this.cep == null) ? 0 : this.cep.hashCode());
-		result = prime * result + this.numero;
+		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
 		return result;
 	}
 
@@ -120,14 +133,24 @@ public class Endereco extends Auditoria {
 		if (getClass() != obj.getClass())
 			return false;
 		Endereco other = (Endereco) obj;
-		if (this.cep == null) {
+		if (cep == null) {
 			if (other.cep != null)
 				return false;
-		} else if (!this.cep.equals(other.cep)) {
+		} else if (!cep.equals(other.cep)) {
 			return false;
 		}
-		if (this.numero != other.numero)
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado)) {
 			return false;
+		}
+		if (numero == null) {
+			if (other.numero != null)
+				return false;
+		} else if (!numero.equals(other.numero)) {
+			return false;
+		}
 		return true;
 	}
 

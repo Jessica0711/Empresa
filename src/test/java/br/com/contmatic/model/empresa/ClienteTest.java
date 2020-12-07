@@ -5,6 +5,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -29,9 +30,15 @@ public class ClienteTest {
 
 	@Before
 	public void setUp() {
-		cliente = new Cliente("João Santos", "475.614.488-80");
-		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12345-678");
+		cliente = new Cliente("João Santos", "47561448880");
+		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12345678");
 		cliente.setEndereco(endereco);
+		cliente.setDataAlteracao(DateTime.parse("2020-12-05"));
+		cliente.setDataCadastro(DateTime.parse("2020-12-05"));
+		cliente.setCriadoPor("jessica");
+		cliente.setIpCriadoPor("127.0.0.1");
+		cliente.setUltimaModificacao("jessica");
+		cliente.setIpUltimaModificacao("127.0.0.1");
 	}
 
 	@After
@@ -53,6 +60,16 @@ public class ClienteTest {
 	public void should_return_true_to_endereco_not_null() {
 		assertNotNull(cliente.getEndereco());
 	}
+	
+	@Test
+	public void should_return_true_to_auditoria_is_not_null() {
+		assertNotNull(cliente.getDataAlteracao());
+		assertNotNull(cliente.getDataCadastro());
+		assertNotNull(cliente.getCriadoPor());
+		assertNotNull(cliente.getUltimaModificacao());
+		assertNotNull(cliente.getIpCriadoPor());
+		assertNotNull(cliente.getIpUltimaModificacao());
+	}
 
 	@Test
 	public void should_return_true_to_correct_input_nome() {
@@ -66,53 +83,47 @@ public class ClienteTest {
 
 	@Test
 	public void should_return_true_to_correct_input_cpf() {
-		assertThat(cliente.getCpf(), is("475.614.488-80"));
+		assertThat(cliente.getCpf(), is("47561448880"));
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_cpf() {
-		assertThat(cliente.getCpf(), not("555.614.488-80"));
+		assertThat(cliente.getCpf(), not("55561448880"));
 	}
 
 	@Test
 	public void should_return_true_to_correct_input_endereco() {
-		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12345-678");
+		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12345678");
 		assertThat(cliente.getEndereco(), is(endereco));
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_endereco() {
-		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12121-888");
+		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12121888");
 		assertThat(cliente.getEndereco(), not(endereco));
 	}
 
 	@Test
 	public void should_return_true_to_the_same_hashcode_class_empresa() {
-		Cliente outroCliente = new Cliente("João Santos", "475.614.488-80");
+		Cliente outroCliente = new Cliente("João Santos", "47561448880");
 		assertEquals(cliente.hashCode(), outroCliente.hashCode());
 	}
 
 	@Test
 	public void should_return_false_to_differents_hashcode_class_empresa() {
-		Cliente outroCliente = new Cliente("João Santos", "444.444.888-88");
-		assertFalse(cliente.hashCode() == outroCliente.hashCode());
-	}
-
-	@Test
-	public void should_return_false_when_hashcode_compare_with_a_null_cpf() {
-		Cliente outroCliente = new Cliente("Maria", null);
+		Cliente outroCliente = new Cliente("João Santos", "33567717014");
 		assertFalse(cliente.hashCode() == outroCliente.hashCode());
 	}
 
 	@Test
 	public void should_return_true_to_same_equals_class_cliente() {
-		Cliente outroCliente = new Cliente("João Santos", "475.614.488-80");
+		Cliente outroCliente = new Cliente("João Santos", "47561448880");
 		assertTrue(cliente.equals(outroCliente));
 	}
 
 	@Test
 	public void should_return_false_to_equals_with_differents_cliente() {
-		Cliente outroCliente = new Cliente("João Santos", "444.444.888-88");
+		Cliente outroCliente = new Cliente("João Santos", "33567717014");
 		assertFalse(cliente.equals(outroCliente));
 	}
 
@@ -120,19 +131,6 @@ public class ClienteTest {
 	public void should_return_false_when_equals_compare_with_a_null_class() {
 		Cliente outroCliente = null;
 		assertFalse(cliente.equals(outroCliente));
-	}
-
-	@Test
-	public void should_return_false_to_equals_from_a_null_cpf() {
-		Cliente outroCliente = new Cliente("Maria", null);
-		assertFalse(outroCliente.equals(cliente));
-	}
-
-	@Test
-	public void should_return_true_when_equals_with_two_cpf_null() {
-		Cliente cliente01 = new Cliente("Maria", null);
-		Cliente cliente02 = new Cliente("José", null);
-		assertTrue(cliente01.equals(cliente02));
 	}
 
 	@Test
@@ -155,9 +153,33 @@ public class ClienteTest {
 		cliente.setNome(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_nome_is_empty() {
 		cliente.setNome("  ");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
+		cliente.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
+	}
+	
+	public void should_return_a_exception_when_cpf_is_null() {
+		cliente.setCpf(null);
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_a_sequence_with_the_same_algoritmo() {
+		cliente.setCpf("33333333333");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_invalid() {
+		cliente.setCpf("12345678901");
+	}
+	
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_when_cpf_is_empty() {
+		cliente.setCpf(" ");
 	}
 
 	@Test
