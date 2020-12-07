@@ -7,15 +7,15 @@ public class Validacao {
 	private Validacao() {
 	}
 
-	public static void validarCampoNulo(Object campo, String nome) {
+	public static void validarCampoNulo(Object campo, String nomeCampo) {
 		if (campo == null) {
-			throw new IllegalArgumentException(nome + " não pode ser nulo");
+			throw new IllegalArgumentException(nomeCampo + " não pode ser nulo");
 		}
 	}
 
-	public static void validarCampoVazio(String campo, String nome) {
+	public static void validarCampoVazio(String campo, String nomeCampo) {
 		if (campo.trim().isEmpty()) {
-			throw new IllegalStateException(nome + " não pode ser vazio");
+			throw new IllegalStateException(nomeCampo + " não pode ser vazio");
 		}
 	}
 
