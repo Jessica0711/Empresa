@@ -12,6 +12,8 @@ import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
 
 public class Empresa extends Auditoria {
+	
+	private static final String NOME_CLASSE = "Empresa";
 
 	private String nome;
 
@@ -29,9 +31,9 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		validarCampoNulo(nome, "Nome");
-		validarCampoVazio(nome, "Nome");
-		validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome", NOME_CLASSE);
+		validarCampoVazio(nome, "Nome", NOME_CLASSE);
+		validarTamanho(1, 60, nome, "Nome", NOME_CLASSE);
 		this.nome = nome;
 	}
 
@@ -40,7 +42,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setCnpj(String cnpj) {
-		validarCampoNulo(cnpj, "CNPJ");
+		validarCampoNulo(cnpj, "CNPJ", NOME_CLASSE);
 		validarCNPJ(cnpj);
 		this.cnpj = cnpj;
 	}
@@ -50,7 +52,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setEndereco(Endereco endereco) {
-		validarCampoNulo(endereco, "Endereço");
+		validarCampoNulo(endereco, "Endereço", NOME_CLASSE);
 		this.endereco = endereco;
 	}
 
@@ -63,7 +65,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
-		validarCampoNulo(funcionarios, "Funcionários");
+		validarCampoNulo(funcionarios, "Funcionários", NOME_CLASSE);
 		this.funcionarios = funcionarios;
 	}
 
@@ -72,7 +74,7 @@ public class Empresa extends Auditoria {
 	}
 
 	public void setProdutos(List<Produto> produtos) {
-		validarCampoNulo(produtos, "Produtos");
+		validarCampoNulo(produtos, "Produtos", NOME_CLASSE);
 		this.produtos = produtos;
 	}
 

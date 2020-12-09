@@ -9,6 +9,8 @@ import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
 
 public class Cliente extends Auditoria {
+	
+	private static final String NOME_CLASSE = "Cliente";
 
 	private String nome;
 
@@ -26,9 +28,9 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		validarCampoNulo(nome, "Nome");
-		validarCampoVazio(nome, "Nome");
-		validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome", NOME_CLASSE);
+		validarCampoVazio(nome, "Nome", NOME_CLASSE);
+		validarTamanho(1, 60, nome, "Nome", NOME_CLASSE);
 		this.nome = nome;
 	}
 
@@ -37,7 +39,7 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setCpf(String cpf) {
-		validarCampoNulo(cpf, "CPF");
+		validarCampoNulo(cpf, "CPF", NOME_CLASSE);
 		validarCPF(cpf);
 		this.cpf = cpf;
 	}
@@ -47,7 +49,7 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setEndereco(Endereco endereco) {
-		validarCampoNulo(endereco, "Endereço");
+		validarCampoNulo(endereco, "Endereço", NOME_CLASSE);
 		this.endereco = endereco;
 	}
 

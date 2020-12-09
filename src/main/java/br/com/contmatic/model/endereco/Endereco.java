@@ -8,6 +8,16 @@ import static br.com.contmatic.model.validacao.ValidacaoCEP.validarCEP;
 import br.com.contmatic.model.auditoria.Auditoria;
 
 public class Endereco extends Auditoria {
+	
+	private static final String NOME_CLASSE = "Endereco";
+	
+	private static final String CAMPO_BAIRRO = "Bairro";
+	
+	private static final String CAMPO_COMPLEMENTO = "Complemento";
+	
+	private static final String CAMPO_CIDADE = "Cidade";
+	
+	private static final String CAMPO_ESTADO = "Estado";
 
 	private String rua;
 
@@ -46,9 +56,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setRua(String rua) {
-		validarCampoNulo(rua, "Rua");
-		validarCampoVazio(rua, "Rua");
-		validarTamanho(1, 70, rua);
+		validarCampoNulo(rua, "Rua", NOME_CLASSE);
+		validarCampoVazio(rua, "Rua", NOME_CLASSE);
+		validarTamanho(1, 70, rua, "Rua", NOME_CLASSE);
 		this.rua = rua;
 	}
 
@@ -57,7 +67,7 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setNumero(Integer numero) {
-		validarCampoNulo(numero, "Número");
+		validarCampoNulo(numero, "Número", NOME_CLASSE);
 		validarNumeroMinimoPermitido(numero);
 		this.numero = numero;
 	}
@@ -67,9 +77,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setBairro(String bairro) {
-		validarCampoNulo(bairro, "Bairro");
-		validarCampoVazio(bairro, "Bairro");
-		validarTamanho(1, 60, bairro);
+		validarCampoNulo(bairro, CAMPO_BAIRRO, NOME_CLASSE);
+		validarCampoVazio(bairro, CAMPO_BAIRRO, NOME_CLASSE);
+		validarTamanho(1, 60, bairro, CAMPO_BAIRRO, NOME_CLASSE);
 		this.bairro = bairro;
 	}
 
@@ -78,7 +88,7 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setCep(String cep) {
-		validarCampoNulo(cep, "CEP");
+		validarCampoNulo(cep, "CEP", NOME_CLASSE);
 		validarCEP(cep);
 		this.cep = cep;
 	}
@@ -88,9 +98,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setComplemento(String complemento) {
-		validarCampoNulo(complemento, "Complemento");
-		validarCampoVazio(complemento, "Complemento");
-		validarTamanho(0, 50, complemento);
+		validarCampoNulo(complemento, CAMPO_COMPLEMENTO, NOME_CLASSE);
+		validarCampoVazio(complemento, CAMPO_COMPLEMENTO, NOME_CLASSE);
+		validarTamanho(0, 50, complemento, CAMPO_COMPLEMENTO, NOME_CLASSE);
 		this.complemento = complemento;
 	}
 
@@ -99,9 +109,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setCidade(String cidade) {
-		validarCampoNulo(cidade, "Cidade");
-		validarCampoVazio(cidade, "Cidade");
-		validarTamanho(1, 60, cidade);
+		validarCampoNulo(cidade, CAMPO_CIDADE, NOME_CLASSE);
+		validarCampoVazio(cidade, CAMPO_CIDADE, NOME_CLASSE);
+		validarTamanho(1, 60, cidade, CAMPO_CIDADE, NOME_CLASSE);
 		this.cidade = cidade;
 	}
 
@@ -110,9 +120,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setEstado(String estado) {
-		validarCampoNulo(estado, "Estado");
-		validarCampoVazio(estado, "Estado");
-		validarTamanho(2, 40, estado);
+		validarCampoNulo(estado, CAMPO_ESTADO, NOME_CLASSE);
+		validarCampoVazio(estado, CAMPO_ESTADO, NOME_CLASSE);
+		validarTamanho(2, 40, estado, CAMPO_ESTADO, NOME_CLASSE);
 		this.estado = estado;
 	}
 

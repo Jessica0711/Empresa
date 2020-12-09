@@ -10,6 +10,9 @@ import java.math.BigDecimal;
 import br.com.contmatic.model.auditoria.Auditoria;
 
 public class Funcionario extends Auditoria {
+	
+	private static final String NOME_CLASSE = "Funcionario";
+	private static final String CAMPO_CARGO = "Cargo";
 
 	private String nome;
 
@@ -27,9 +30,9 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		validarCampoNulo(nome, "Nome");
-		validarCampoVazio(nome, "Nome");
-		validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome", NOME_CLASSE);
+		validarCampoVazio(nome, "Nome", NOME_CLASSE);
+		validarTamanho(1, 60, nome, "Nome", NOME_CLASSE);
 		this.nome = nome;
 	}
 
@@ -38,7 +41,7 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setSalario(BigDecimal salario) {
-		validarCampoNulo(salario, "Salário");
+		validarCampoNulo(salario, "Salário", NOME_CLASSE);
 		validarSalarioMinimoPermitido(salario);
 		this.salario = salario;
 	}
@@ -48,9 +51,9 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setCargo(String cargo) {
-		validarCampoNulo(cargo, "Cargo");
-		validarCampoVazio(cargo, "Cargo");
-		validarTamanho(1, 60, cargo);
+		validarCampoNulo(cargo, CAMPO_CARGO, NOME_CLASSE);
+		validarCampoVazio(cargo, CAMPO_CARGO, NOME_CLASSE);
+		validarTamanho(1, 60, cargo, CAMPO_CARGO, NOME_CLASSE);
 		this.cargo = cargo;
 	}
 
@@ -63,7 +66,7 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setCPF(String cpf) {
-		validarCampoNulo(cpf, "CPF");
+		validarCampoNulo(cpf, "CPF", NOME_CLASSE);
 		validarCPF(cpf);
 		this.cpf = cpf;
 	}

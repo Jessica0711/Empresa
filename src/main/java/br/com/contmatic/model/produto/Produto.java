@@ -10,6 +10,10 @@ import br.com.contmatic.model.auditoria.Auditoria;
 
 public class Produto extends Auditoria {
 
+	private static final String NOME_CLASSE = "Produto";
+	
+	private static final String NOME_MARCA = "Marca";
+	
 	private String nome;
 
 	private String marca;
@@ -26,27 +30,27 @@ public class Produto extends Auditoria {
 	}
 
 	public void setPreco(BigDecimal preco) {
-		validarCampoNulo(preco, "Preço");
+		validarCampoNulo(preco, "Preço", NOME_CLASSE);
 		validarPrecoMinimoPermitido(preco);
 		this.preco = preco;
 	}
 
 	public void setCodigo(Long codigo) {
-		validarCampoNulo(codigo, "Codigo");
+		validarCampoNulo(codigo, "Codigo", NOME_CLASSE);
 		this.codigo = codigo;
 	}
 
 	public void setMarca(String marca) {
-		validarCampoNulo(marca, "Marca");
-		validarCampoVazio(marca, "Marca");
-		validarTamanho(1, 60, marca);
+		validarCampoNulo(marca, NOME_MARCA, NOME_CLASSE);
+		validarCampoVazio(marca, NOME_MARCA, NOME_CLASSE);
+		validarTamanho(1, 60, marca, NOME_MARCA, NOME_CLASSE);
 		this.marca = marca;
 	}
 
 	public void setNome(String nome) {
-		validarCampoNulo(nome, "Nome");
-		validarCampoVazio(nome, "Nome");
-		validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome", NOME_CLASSE);
+		validarCampoVazio(nome, "Nome", NOME_CLASSE);
+		validarTamanho(1, 60, nome, "Nome", NOME_CLASSE);
 		this.nome = nome;
 	}
 
