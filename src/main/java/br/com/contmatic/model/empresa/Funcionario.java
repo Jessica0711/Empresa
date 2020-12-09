@@ -1,9 +1,13 @@
 package br.com.contmatic.model.empresa;
 
+import static br.com.contmatic.model.utils.Validacao.validarCPF;
+import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+
 import java.math.BigDecimal;
 
 import br.com.contmatic.model.auditoria.Auditoria;
-import br.com.contmatic.model.utils.Validacao;
 
 public class Funcionario extends Auditoria {
 
@@ -23,9 +27,9 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		Validacao.validarCampoNulo(nome, "Nome");
-		Validacao.validarCampoVazio(nome, "Nome");
-		Validacao.validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome");
+		validarCampoVazio(nome, "Nome");
+		validarTamanho(1, 60, nome);
 		this.nome = nome;
 	}
 
@@ -34,10 +38,8 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setSalario(BigDecimal salario) {
-		Validacao.validarCampoNulo(salario, "Salário");
-		if (salario.doubleValue() <= 0) {
-			throw new IllegalStateException("Sálario deve ser maior que 0");
-		}
+		validarCampoNulo(salario, "Salário");
+		validarSalarioMinimoPermitido(salario);
 		this.salario = salario;
 	}
 
@@ -46,9 +48,9 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setCargo(String cargo) {
-		Validacao.validarCampoNulo(cargo, "Cargo");
-		Validacao.validarCampoVazio(cargo, "Cargo");
-		Validacao.validarTamanho(1, 60, cargo);
+		validarCampoNulo(cargo, "Cargo");
+		validarCampoVazio(cargo, "Cargo");
+		validarTamanho(1, 60, cargo);
 		this.cargo = cargo;
 	}
 
@@ -61,8 +63,8 @@ public class Funcionario extends Auditoria {
 	}
 
 	public void setCPF(String cpf) {
-		Validacao.validarCampoNulo(cpf, "CPF");
-		Validacao.validarCPF(cpf);
+		validarCampoNulo(cpf, "CPF");
+		validarCPF(cpf);
 		this.cpf = cpf;
 	}
 
@@ -94,7 +96,15 @@ public class Funcionario extends Auditoria {
 
 	@Override
 	public String toString() {
-		return "Funcionario(a) " + this.nome + ", CPF: " + this.cpf + ", salario: " + this.salario + ", this.cargo: "
-				+ this.cargo;
+		StringBuilder funcionarioFields = new StringBuilder();
+		funcionarioFields.append("Funcionario(a) ").append(this.nome).append(", CPF: ").append(this.cpf)
+				.append(", salario: ").append(this.salario).append(", this.cargo: ").append(this.cargo);
+		return funcionarioFields.toString();
+	}
+
+	private void validarSalarioMinimoPermitido(BigDecimal salario) {
+		if (salario.doubleValue() <= 0) {
+			throw new IllegalStateException("Sálario deve ser maior que 0");
+		}
 	}
 }

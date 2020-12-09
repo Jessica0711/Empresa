@@ -1,7 +1,11 @@
 package br.com.contmatic.model.endereco;
 
+import static br.com.contmatic.model.utils.Validacao.validarCEP;
+import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+
 import br.com.contmatic.model.auditoria.Auditoria;
-import br.com.contmatic.model.utils.Validacao;
 
 public class Endereco extends Auditoria {
 
@@ -42,9 +46,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setRua(String rua) {
-		Validacao.validarCampoNulo(rua, "Rua");
-		Validacao.validarCampoVazio(rua, "Rua");
-		Validacao.validarTamanho(1, 70, rua);
+		validarCampoNulo(rua, "Rua");
+		validarCampoVazio(rua, "Rua");
+		validarTamanho(1, 70, rua);
 		this.rua = rua;
 	}
 
@@ -53,10 +57,8 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setNumero(Integer numero) {
-		Validacao.validarCampoNulo(numero, "Número");
-		if (numero <= 0) {
-			throw new IllegalStateException("Número deve ser maior que 0");
-		}
+		validarCampoNulo(numero, "Número");
+		validarNumeroMinimoPermitido(numero);
 		this.numero = numero;
 	}
 
@@ -65,9 +67,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setBairro(String bairro) {
-		Validacao.validarCampoNulo(bairro, "Bairro");
-		Validacao.validarCampoVazio(bairro, "Bairro");
-		Validacao.validarTamanho(1, 60, bairro);
+		validarCampoNulo(bairro, "Bairro");
+		validarCampoVazio(bairro, "Bairro");
+		validarTamanho(1, 60, bairro);
 		this.bairro = bairro;
 	}
 
@@ -76,8 +78,8 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setCep(String cep) {
-		Validacao.validarCampoNulo(cep, "CEP");
-		Validacao.validarCEP(cep);
+		validarCampoNulo(cep, "CEP");
+		validarCEP(cep);
 		this.cep = cep;
 	}
 
@@ -86,9 +88,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setComplemento(String complemento) {
-		Validacao.validarCampoNulo(complemento, "Complemento");
-		Validacao.validarCampoVazio(complemento, "Complemento");
-		Validacao.validarTamanho(0, 50, complemento);
+		validarCampoNulo(complemento, "Complemento");
+		validarCampoVazio(complemento, "Complemento");
+		validarTamanho(0, 50, complemento);
 		this.complemento = complemento;
 	}
 
@@ -97,9 +99,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setCidade(String cidade) {
-		Validacao.validarCampoNulo(cidade, "Cidade");
-		Validacao.validarCampoVazio(cidade, "Cidade");
-		Validacao.validarTamanho(1, 60, cidade);
+		validarCampoNulo(cidade, "Cidade");
+		validarCampoVazio(cidade, "Cidade");
+		validarTamanho(1, 60, cidade);
 		this.cidade = cidade;
 	}
 
@@ -108,9 +110,9 @@ public class Endereco extends Auditoria {
 	}
 
 	public void setEstado(String estado) {
-		Validacao.validarCampoNulo(estado, "Estado");
-		Validacao.validarCampoVazio(estado, "Estado");
-		Validacao.validarTamanho(2, 40, estado);
+		validarCampoNulo(estado, "Estado");
+		validarCampoVazio(estado, "Estado");
+		validarTamanho(2, 40, estado);
 		this.estado = estado;
 	}
 
@@ -156,8 +158,17 @@ public class Endereco extends Auditoria {
 
 	@Override
 	public String toString() {
-		return "Endereço: " + this.rua + ", " + this.numero + ", " + this.bairro + ", CEP: " + this.cep
-				+ ", complemento: " + this.complemento;
+		StringBuilder enderecoFields = new StringBuilder();
+		enderecoFields.append("Endereco [rua=").append(rua).append(", numero=").append(numero).append(", bairro=")
+				.append(bairro).append(", cep=").append(cep).append(", complemento=").append(complemento)
+				.append(", cidade=").append(cidade).append(", estado=").append(estado).append("]");
+		return enderecoFields.toString();
+	}
+
+	private void validarNumeroMinimoPermitido(Integer numero) {
+		if (numero <= 0) {
+			throw new IllegalStateException("Número deve ser maior que 0");
+		}
 	}
 
 }

@@ -1,8 +1,12 @@
 package br.com.contmatic.model.empresa;
 
+import static br.com.contmatic.model.utils.Validacao.validarCPF;
+import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
-import br.com.contmatic.model.utils.Validacao;
 
 public class Cliente extends Auditoria {
 
@@ -22,9 +26,9 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setNome(String nome) {
-		Validacao.validarCampoNulo(nome, "Nome");
-		Validacao.validarCampoVazio(nome, "Nome");
-		Validacao.validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome");
+		validarCampoVazio(nome, "Nome");
+		validarTamanho(1, 60, nome);
 		this.nome = nome;
 	}
 
@@ -33,8 +37,8 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setCpf(String cpf) {
-		Validacao.validarCampoNulo(cpf, "CPF");
-		Validacao.validarCPF(cpf);
+		validarCampoNulo(cpf, "CPF");
+		validarCPF(cpf);
 		this.cpf = cpf;
 	}
 
@@ -43,7 +47,7 @@ public class Cliente extends Auditoria {
 	}
 
 	public void setEndereco(Endereco endereco) {
-		Validacao.validarCampoNulo(endereco, "Endereço");
+		validarCampoNulo(endereco, "Endereço");
 		this.endereco = endereco;
 	}
 
@@ -75,7 +79,10 @@ public class Cliente extends Auditoria {
 
 	@Override
 	public String toString() {
-		return "Cliente: " + this.nome + ", CPF: " + this.cpf + ", " + this.endereco;
+		StringBuilder clienteFilds = new StringBuilder();
+		clienteFilds.append("Cliente [nome=").append(this.nome).append(", cpf=").append(this.cpf).append(", endereco=")
+				.append(this.endereco.toString()).append("]");
+		return clienteFilds.toString();
 	}
 
 }

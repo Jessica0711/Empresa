@@ -1,9 +1,12 @@
 package br.com.contmatic.model.produto;
 
+import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+
 import java.math.BigDecimal;
 
 import br.com.contmatic.model.auditoria.Auditoria;
-import br.com.contmatic.model.utils.Validacao;
 
 public class Produto extends Auditoria {
 
@@ -23,30 +26,27 @@ public class Produto extends Auditoria {
 	}
 
 	public void setPreco(BigDecimal preco) {
-		Validacao.validarCampoNulo(preco, "Preço");
-		if (preco.doubleValue() <= 0) {
-			throw new IllegalStateException("Preço deve ser maior que 0");
-		}
+		validarCampoNulo(preco, "Preço");
+		validarPrecoMinimoPermitido(preco);
 		this.preco = preco;
-
 	}
 
 	public void setCodigo(Long codigo) {
-		Validacao.validarCampoNulo(codigo, "Codigo");
+		validarCampoNulo(codigo, "Codigo");
 		this.codigo = codigo;
 	}
 
 	public void setMarca(String marca) {
-		Validacao.validarCampoNulo(marca, "Marca");
-		Validacao.validarCampoVazio(marca, "Marca");
-		Validacao.validarTamanho(1, 60, marca);
+		validarCampoNulo(marca, "Marca");
+		validarCampoVazio(marca, "Marca");
+		validarTamanho(1, 60, marca);
 		this.marca = marca;
 	}
 
 	public void setNome(String nome) {
-		Validacao.validarCampoNulo(nome, "Nome");
-		Validacao.validarCampoVazio(nome, "Nome");
-		Validacao.validarTamanho(1, 60, nome);
+		validarCampoNulo(nome, "Nome");
+		validarCampoVazio(nome, "Nome");
+		validarTamanho(1, 60, nome);
 		this.nome = nome;
 	}
 
@@ -101,8 +101,16 @@ public class Produto extends Auditoria {
 
 	@Override
 	public String toString() {
-		return "Produto " + this.nome + ", marca: " + this.marca + ", preço: " + this.preco + ", codigo de produto: "
-				+ this.codigo;
+		StringBuilder produtoFields = new StringBuilder();
+		produtoFields.append("Produto [nome=").append(nome).append(", marca=").append(marca).append(", preco=")
+				.append(preco).append(", codigo=").append(codigo).append("]");
+		return produtoFields.toString();
+	}
+
+	private void validarPrecoMinimoPermitido(BigDecimal preco) {
+		if (preco.doubleValue() <= 0) {
+			throw new IllegalStateException("Preço deve ser maior que 0");
+		}
 	}
 
 }
