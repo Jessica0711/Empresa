@@ -37,3 +37,7 @@ target/classes/br/com/contmatic/model/auditoria/Auditoria.class
 target/classes/br/com/contmatic/model/utils/Validacao.class
 target/test-classes/br/com/contmatic/model/auditoria/AuditoriaTest.class
 target/classes/.empty
+target/classes/br/com/contmatic/model/validacao/Validacao.class
+target/classes/br/com/contmatic/model/validacao/ValidacaoCEP.class
+target/classes/br/com/contmatic/model/validacao/ValidacaoCNPJ.class
+target/classes/br/com/contmatic/model/validacao/ValidacaoCPF.class

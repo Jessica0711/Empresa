@@ -1,9 +1,9 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.utils.Validacao.validarCPF;
-import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
-import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
-import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.validacao.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.ValidacaoCPF.validarCPF;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;

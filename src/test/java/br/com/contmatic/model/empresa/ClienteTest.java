@@ -189,11 +189,11 @@ public class ClienteTest {
 
 	@Test
 	public void should_return_true_if_tostring_contains_cpf() {
-		assertThat(cliente.toString(), containsString("CPF"));
+		assertThat(cliente.toString(), containsString("cpf"));
 	}
 
 	@Test
 	public void should_return_true_if_tostring_contains_endereco() {
-		assertThat(cliente.toString(), containsString("Endereço"));
+		assertThat(cliente.toString(), containsString("Endereco"));
 	}
 }

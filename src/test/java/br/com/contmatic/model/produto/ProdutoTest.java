@@ -165,7 +165,7 @@ public class ProdutoTest {
 
 	@Test
 	public void should_return_true_if_tostring_contains_preco() {
-		assertThat(produto.toString(), containsString("preço"));
+		assertThat(produto.toString(), containsString("preco"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

@@ -310,7 +310,7 @@ public class EnderecoTest {
 
 	@Test
 	public void should_return_true_if_tostring_contains_cep() {
-		assertThat(endereco.toString(), containsString("CEP"));
+		assertThat(endereco.toString(), containsString("cep"));
 	}
 
 	@Test

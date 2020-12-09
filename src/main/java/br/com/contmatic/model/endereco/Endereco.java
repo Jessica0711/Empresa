@@ -1,9 +1,9 @@
 package br.com.contmatic.model.endereco;
 
-import static br.com.contmatic.model.utils.Validacao.validarCEP;
-import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
-import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
-import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.validacao.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.ValidacaoCEP.validarCEP;
 
 import br.com.contmatic.model.auditoria.Auditoria;
 

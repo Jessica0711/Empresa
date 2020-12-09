@@ -1,9 +1,9 @@
 package br.com.contmatic.model.empresa;
 
-import static br.com.contmatic.model.utils.Validacao.validarCNPJ;
-import static br.com.contmatic.model.utils.Validacao.validarCampoNulo;
-import static br.com.contmatic.model.utils.Validacao.validarCampoVazio;
-import static br.com.contmatic.model.utils.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoVazio;
+import static br.com.contmatic.model.validacao.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.ValidacaoCNPJ.validarCNPJ;
 
 import java.util.List;
 
@@ -105,9 +105,9 @@ public class Empresa extends Auditoria {
 	@Override
 	public String toString() {
 		StringBuilder empresaFields = new StringBuilder();
-		empresaFields.append("Empresa: ").append(this.nome).append(", cnpj: ").append(this.cnpj).append(", endereco: ")
-				.append(this.endereco.toString()).append(", funcionarios: ").append(this.funcionarios.toString())
-				.append(", produtos: ").append(this.produtos.toString());
+		empresaFields.append("Empresa [nome=").append(this.nome).append(", cnpj=").append(this.cnpj)
+				.append(", endereco=").append(this.endereco).append(", funcionarios=").append(this.funcionarios)
+				.append(", produtos=").append(this.produtos).append("]");
 		return empresaFields.toString();
 	}
 

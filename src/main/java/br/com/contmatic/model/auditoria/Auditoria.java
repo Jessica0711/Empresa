@@ -2,7 +2,7 @@ package br.com.contmatic.model.auditoria;
 
 import org.joda.time.DateTime;
 
-import br.com.contmatic.model.utils.Validacao;
+import br.com.contmatic.model.validacao.Validacao;
 
 public class Auditoria {
 
