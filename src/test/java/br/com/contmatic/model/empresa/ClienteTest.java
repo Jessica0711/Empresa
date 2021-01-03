@@ -3,7 +3,11 @@ package br.com.contmatic.model.empresa;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import org.joda.time.DateTime;
 import org.junit.After;
@@ -30,9 +34,8 @@ public class ClienteTest {
 
 	@Before
 	public void setUp() {
-		cliente = new Cliente("João Santos", "47561448880");
-		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12345678");
-		cliente.setEndereco(endereco);
+		Endereco endereco = new Endereco(07, "12345678");
+		cliente = new Cliente("João Santos", "47561448880", endereco);
 		cliente.setDataAlteracao(DateTime.parse("2020-12-05"));
 		cliente.setDataCadastro(DateTime.parse("2020-12-05"));
 		cliente.setCriadoPor("jessica");
@@ -47,22 +50,10 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void should_return_true_to_nome_not_null() {
+	public void should_return_true_to_not_null() {
 		assertNotNull(cliente.getNome());
-	}
-
-	@Test
-	public void should_return_true_to_cpf_not_null() {
 		assertNotNull(cliente.getCpf());
-	}
-
-	@Test
-	public void should_return_true_to_endereco_not_null() {
 		assertNotNull(cliente.getEndereco());
-	}
-	
-	@Test
-	public void should_return_true_to_auditoria_is_not_null() {
 		assertNotNull(cliente.getDataAlteracao());
 		assertNotNull(cliente.getDataCadastro());
 		assertNotNull(cliente.getCriadoPor());
@@ -93,13 +84,13 @@ public class ClienteTest {
 
 	@Test
 	public void should_return_true_to_correct_input_endereco() {
-		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12345678");
+		Endereco endereco = new Endereco(07, "12345678");
 		assertThat(cliente.getEndereco(), is(endereco));
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_endereco() {
-		Endereco endereco = new Endereco("Avenida 02", 07, "Moema", "12121888");
+		Endereco endereco = new Endereco(07, "12121888");
 		assertThat(cliente.getEndereco(), not(endereco));
 	}
 
@@ -157,26 +148,26 @@ public class ClienteTest {
 	public void should_return_a_exception_when_nome_is_empty() {
 		cliente.setNome("  ");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
 		cliente.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
 	}
-	
+
 	public void should_return_a_exception_when_cpf_is_null() {
 		cliente.setCpf(null);
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_a_sequence_with_the_same_algoritmo() {
 		cliente.setCpf("33333333333");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_invalid() {
 		cliente.setCpf("12345678901");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_empty() {
 		cliente.setCpf(" ");

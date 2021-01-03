@@ -41,3 +41,6 @@ target/classes/br/com/contmatic/model/validacao/Validacao.class
 target/classes/br/com/contmatic/model/validacao/ValidacaoCEP.class
 target/classes/br/com/contmatic/model/validacao/ValidacaoCNPJ.class
 target/classes/br/com/contmatic/model/validacao/ValidacaoCPF.class
+target/classes/br/com/contmatic/model/endereco/Cidade.class
+target/classes/br/com/contmatic/model/endereco/Estado.class
+target/classes/br/com/contmatic/model/endereco/Pais.class

@@ -9,7 +9,7 @@ import br.com.contmatic.model.auditoria.Auditoria;
 import br.com.contmatic.model.endereco.Endereco;
 
 public class Cliente extends Auditoria {
-	
+
 	private static final String NOME_CLASSE = "Cliente";
 
 	private String nome;
@@ -21,6 +21,13 @@ public class Cliente extends Auditoria {
 	public Cliente(String nome, String cpf) {
 		setNome(nome);
 		setCpf(cpf);
+	}
+
+	public Cliente(String nome, String cpf, Endereco endereco) {
+		super();
+		setNome(nome);
+		setCpf(cpf);
+		setEndereco(endereco);
 	}
 
 	public String getNome() {
@@ -81,10 +88,10 @@ public class Cliente extends Auditoria {
 
 	@Override
 	public String toString() {
-		StringBuilder clienteFilds = new StringBuilder();
-		clienteFilds.append("Cliente [nome=").append(this.nome).append(", cpf=").append(this.cpf).append(", endereco=")
+		StringBuilder clienteFields = new StringBuilder();
+		clienteFields.append("Cliente [nome=").append(this.nome).append(", cpf=").append(this.cpf).append(", endereco=")
 				.append(this.endereco.toString()).append("]");
-		return clienteFilds.toString();
+		return clienteFields.toString();
 	}
 
 }

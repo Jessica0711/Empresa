@@ -31,7 +31,8 @@ public class EnderecoTest {
 
 	@Before
 	public void setUp() {
-		endereco = new Endereco("Avenida", 01, "São Paulo", "01234567", "Apt 07", "São Paulo", "São Paulo");
+		endereco = new Endereco("Avenida", 01, "Tatuapé", "01234567", "Apt 07",
+				new Cidade("São Paulo", new Estado("São Paulo", new Pais("Brasil"))));
 		endereco.setDataAlteracao(DateTime.parse("2020-12-05"));
 		endereco.setDataCadastro(DateTime.parse("2020-12-05"));
 		endereco.setCriadoPor("jessica");
@@ -46,42 +47,13 @@ public class EnderecoTest {
 	}
 
 	@Test
-	public void should_return_true_to_rua_not_null() {
+	public void should_return_true_to_not_null() {
 		assertNotNull(endereco.getRua());
-	}
-
-	@Test
-	public void should_return_true_to_numero_not_null() {
 		assertNotNull(endereco.getNumero());
-	}
-
-	@Test
-	public void should_return_true_to_bairro_not_null() {
 		assertNotNull(endereco.getBairro());
-	}
-
-	@Test
-	public void should_return_true_to_cep_not_null() {
 		assertNotNull(endereco.getCep());
-	}
-
-	@Test
-	public void should_return_true_to_complemento_not_null() {
 		assertNotNull(endereco.getComplemento());
-	}
-
-	@Test
-	public void should_return_true_to_cidade_not_null() {
 		assertNotNull(endereco.getCidade());
-	}
-
-	@Test
-	public void should_return_true_to_estado_not_null() {
-		assertNotNull(endereco.getEstado());
-	}
-	
-	@Test
-	public void should_return_true_to_auditoria_is_not_null() {
 		assertNotNull(endereco.getDataAlteracao());
 		assertNotNull(endereco.getDataCadastro());
 		assertNotNull(endereco.getCriadoPor());
@@ -112,7 +84,7 @@ public class EnderecoTest {
 
 	@Test
 	public void should_return_true_to_correct_input_bairro() {
-		assertThat(endereco.getBairro(), is("São Paulo"));
+		assertThat(endereco.getBairro(), is("Tatuapé"));
 	}
 
 	@Test
@@ -142,25 +114,25 @@ public class EnderecoTest {
 
 	@Test
 	public void should_return_true_to_the_same_hashcode_class_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "São Paulo", "01234567");
+		Endereco outroEndereco = new Endereco(01, "01234567");
 		assertEquals(endereco.hashCode(), outroEndereco.hashCode());
 	}
 
 	@Test
 	public void should_return_false_to_differents_hashcode_class_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "São Paulo", "01234555");
+		Endereco outroEndereco = new Endereco(01, "01234555");
 		assertFalse(endereco.hashCode() == outroEndereco.hashCode());
 	}
 
 	@Test
 	public void should_return_true_to_same_equals_class_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "São Paulo", "01234567");
+		Endereco outroEndereco = new Endereco(01, "01234567");
 		assertTrue(endereco.equals(outroEndereco));
 	}
 
 	@Test
 	public void should_return_false_to_equals_with_differents_endereco() {
-		Endereco outroEndereco = new Endereco("Avenida", 01, "São Paulo", "01234777");
+		Endereco outroEndereco = new Endereco(01, "01234777");
 		assertFalse(endereco.equals(outroEndereco));
 	}
 
@@ -172,8 +144,8 @@ public class EnderecoTest {
 
 	@Test
 	public void should_return_false_when_compare_hashcode_with_differents_numero() {
-		Endereco endereco1 = new Endereco("Avenida", 01, "São Paulo", "01234777");
-		Endereco endereco2 = new Endereco("Avenida", 02, "São Paulo", "01234777");
+		Endereco endereco1 = new Endereco(01, "01234777");
+		Endereco endereco2 = new Endereco(02, "01234777");
 		assertFalse(endereco1.equals(endereco2));
 	}
 
@@ -222,19 +194,9 @@ public class EnderecoTest {
 		endereco.setBairro("  ");
 	}
 
-	@Test(expected = IllegalStateException.class)
-	public void should_return_a_exception_when_cidade_has_more_than_60_caracters() {
-		endereco.setCidade("cidade maior do que sessenta caracteres. cidade maior do que sessenta caracteres");
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_cidade_is_null() {
 		endereco.setCidade(null);
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void should_return_a_exception_when_cidade_is_empty() {
-		endereco.setCidade("  ");
 	}
 
 	@Test(expected = IllegalStateException.class)
@@ -267,30 +229,10 @@ public class EnderecoTest {
 	public void should_return_a_exception_when_complemento_is_empty() {
 		endereco.setComplemento("  ");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_complemento_has_more_than_50_caracters() {
 		endereco.setComplemento("complemento maior do que sessenta caracteres. complemento maior do que 50 caracteres");
-	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void should_return_a_exception_when_estado_is_null() {
-		endereco.setEstado(null);
-	}
-
-	@Test(expected = IllegalStateException.class)
-	public void should_return_a_exception_when_estado_is_empty() {
-		endereco.setEstado("  ");
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void should_return_a_exception_when_estado_has_more_than_40_caracters() {
-		endereco.setEstado("estado maior do que sessenta caracteres. estado maior do que 40 caracteres");
-	}
-	
-	@Test(expected = IllegalStateException.class)
-	public void should_return_a_exception_when_estado_has_less_than_2_caracters() {
-		endereco.setEstado("e");
 	}
 
 	@Test
@@ -305,7 +247,7 @@ public class EnderecoTest {
 
 	@Test
 	public void should_return_true_if_tostring_contains_bairro() {
-		assertThat(endereco.toString(), containsString("São Paulo"));
+		assertThat(endereco.toString(), containsString("bairro"));
 	}
 
 	@Test

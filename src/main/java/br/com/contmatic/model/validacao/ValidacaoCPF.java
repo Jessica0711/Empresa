@@ -14,9 +14,8 @@ public class ValidacaoCPF {
 	}
 
 	private static boolean isCPF(String cpf) {
-		if (possuiSequenciaComMesmoNumero(cpf) || (cpf.trim().length() != 11)) {
-			return (false);
-		}
+		verificarTamanhoCPF(cpf);
+		possuiSequenciaComMesmoNumero(cpf);
 		try {
 			char dig10 = calcularDigitoCPF(10, cpf, 9);
 			char dig11 = calcularDigitoCPF(11, cpf, 10);
@@ -26,11 +25,19 @@ public class ValidacaoCPF {
 		}
 	}
 
-	private static boolean possuiSequenciaComMesmoNumero(String cpf) {
-		return cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
+	private static void verificarTamanhoCPF(String cpf) {
+		if (cpf.trim().length() != 11) {
+			throw new IllegalStateException("Tamanho CPF inválido");
+		}
+	}
+
+	private static void possuiSequenciaComMesmoNumero(String cpf) {
+		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 				|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
 				|| cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888")
-				|| cpf.equals("99999999999");
+				|| cpf.equals("99999999999")) {
+			throw new IllegalStateException("CPF inválido");
+		}
 	}
 
 	private static char calcularDigitoCPF(int peso, String cpf, int charPosition) {

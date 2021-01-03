@@ -1,23 +1,24 @@
 package br.com.contmatic.model.auditoria;
 
+import static br.com.contmatic.model.validacao.Validacao.validarCampoNulo;
+import static br.com.contmatic.model.validacao.Validacao.validarCampoVazio;
+
 import org.joda.time.DateTime;
 
-import br.com.contmatic.model.validacao.Validacao;
-
 public class Auditoria {
-	
+
 	private static final String NOME_CLASSE = "Auditoria";
 
 	private DateTime dataCadastro;
 
 	private DateTime dataAlteracao;
-	
+
 	private String criadoPor;
-	
+
 	private String ultimaModificacao;
-	
+
 	private String ipCriadoPor;
-	
+
 	private String ipUltimaModificacao;
 
 	public DateTime getDataCadastro() {
@@ -25,16 +26,16 @@ public class Auditoria {
 	}
 
 	public void setDataCadastro(DateTime dataCadastro) {
-		Validacao.validarCampoNulo(dataCadastro, "Data de cadastro", NOME_CLASSE);
+		validarCampoNulo(dataCadastro, "Data de cadastro", NOME_CLASSE);
 		this.dataCadastro = dataCadastro;
 	}
 
 	public DateTime getDataAlteracao() {
 		return this.dataAlteracao;
 	}
-	
+
 	public void setDataAlteracao(DateTime dataAlteracao) {
-		Validacao.validarCampoNulo(dataAlteracao, "Data de alteração", NOME_CLASSE);
+		validarCampoNulo(dataAlteracao, "Data de alteração", NOME_CLASSE);
 		this.dataAlteracao = dataAlteracao;
 	}
 
@@ -43,8 +44,8 @@ public class Auditoria {
 	}
 
 	public void setCriadoPor(String criadoPor) {
-		Validacao.validarCampoNulo(criadoPor, "Criado por", NOME_CLASSE);
-		Validacao.validarCampoVazio(criadoPor, "Criado por", NOME_CLASSE);
+		validarCampoNulo(criadoPor, "Criado por", NOME_CLASSE);
+		validarCampoVazio(criadoPor, "Criado por", NOME_CLASSE);
 		this.criadoPor = criadoPor;
 	}
 
@@ -53,8 +54,8 @@ public class Auditoria {
 	}
 
 	public void setUltimaModificacao(String ultimaModificacao) {
-		Validacao.validarCampoNulo(ultimaModificacao, "Ultima modificacao", NOME_CLASSE);
-		Validacao.validarCampoVazio(ultimaModificacao, "Ultima modificacao", NOME_CLASSE);
+		validarCampoNulo(ultimaModificacao, "Ultima modificacao", NOME_CLASSE);
+		validarCampoVazio(ultimaModificacao, "Ultima modificacao", NOME_CLASSE);
 		this.ultimaModificacao = ultimaModificacao;
 	}
 
@@ -63,8 +64,8 @@ public class Auditoria {
 	}
 
 	public void setIpCriadoPor(String ipCriadoPor) {
-		Validacao.validarCampoNulo(ipCriadoPor, "IP criado por", NOME_CLASSE);
-		Validacao.validarCampoVazio(ipCriadoPor, "IP criado por", NOME_CLASSE);
+		validarCampoNulo(ipCriadoPor, "IP criado por", NOME_CLASSE);
+		validarCampoVazio(ipCriadoPor, "IP criado por", NOME_CLASSE);
 		this.ipCriadoPor = ipCriadoPor;
 	}
 
@@ -73,9 +74,19 @@ public class Auditoria {
 	}
 
 	public void setIpUltimaModificacao(String ipUltimaModificacao) {
-		Validacao.validarCampoNulo(ipUltimaModificacao, "IP ultima modificacao", NOME_CLASSE);
-		Validacao.validarCampoVazio(ipUltimaModificacao, "IP ultima modificacao", NOME_CLASSE);
+		validarCampoNulo(ipUltimaModificacao, "IP ultima modificacao", NOME_CLASSE);
+		validarCampoVazio(ipUltimaModificacao, "IP ultima modificacao", NOME_CLASSE);
 		this.ipUltimaModificacao = ipUltimaModificacao;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder auditoriaFields = new StringBuilder();
+		auditoriaFields.append("Auditoria [dataCadastro=").append(dataCadastro).append(", dataAlteracao=")
+				.append(dataAlteracao).append(", criadoPor=").append(criadoPor).append(", ultimaModificacao=")
+				.append(ultimaModificacao).append(", ipCriadoPor=").append(ipCriadoPor).append(", ipUltimaModificacao=")
+				.append(ipUltimaModificacao).append("]");
+		return auditoriaFields.toString();
 	}
 
 }

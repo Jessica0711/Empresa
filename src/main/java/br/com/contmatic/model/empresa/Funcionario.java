@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import br.com.contmatic.model.auditoria.Auditoria;
 
 public class Funcionario extends Auditoria {
-	
+
 	private static final String NOME_CLASSE = "Funcionario";
 	private static final String CAMPO_CARGO = "Cargo";
 
@@ -22,7 +22,12 @@ public class Funcionario extends Auditoria {
 
 	private String cpf;
 
+	public Funcionario(String cpf) {
+		setCPF(cpf);
+	}
+
 	public Funcionario(String nome, String cpf, BigDecimal salario, String cargo) {
+		super();
 		setNome(nome);
 		setCPF(cpf);
 		setSalario(salario);

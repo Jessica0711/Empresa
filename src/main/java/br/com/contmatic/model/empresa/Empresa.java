@@ -3,6 +3,7 @@ package br.com.contmatic.model.empresa;
 import static br.com.contmatic.model.validacao.Validacao.validarCampoNulo;
 import static br.com.contmatic.model.validacao.Validacao.validarCampoVazio;
 import static br.com.contmatic.model.validacao.Validacao.validarTamanho;
+import static br.com.contmatic.model.validacao.Validacao.validarTamanhoMinimoLista;
 import static br.com.contmatic.model.validacao.ValidacaoCNPJ.validarCNPJ;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import br.com.contmatic.model.endereco.Endereco;
 import br.com.contmatic.model.produto.Produto;
 
 public class Empresa extends Auditoria {
-	
+
 	private static final String NOME_CLASSE = "Empresa";
 
 	private String nome;
@@ -66,6 +67,7 @@ public class Empresa extends Auditoria {
 
 	public void setFuncionarios(List<Funcionario> funcionarios) {
 		validarCampoNulo(funcionarios, "Funcionários", NOME_CLASSE);
+		validarTamanhoMinimoLista(1, funcionarios, "Funcionários", NOME_CLASSE);
 		this.funcionarios = funcionarios;
 	}
 
@@ -75,6 +77,7 @@ public class Empresa extends Auditoria {
 
 	public void setProdutos(List<Produto> produtos) {
 		validarCampoNulo(produtos, "Produtos", NOME_CLASSE);
+		validarTamanhoMinimoLista(1, produtos, "Produtos", NOME_CLASSE);
 		this.produtos = produtos;
 	}
 

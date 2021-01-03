@@ -22,6 +22,11 @@ public class Produto extends Auditoria {
 
 	private Long codigo;
 
+	public Produto(String marca, Long codigo) {
+		setMarca(marca);
+		setCodigo(codigo);
+	}
+
 	public Produto(String nome, String marca, BigDecimal preco, Long codigo) {
 		setNome(nome);
 		setMarca(marca);

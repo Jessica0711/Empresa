@@ -39,9 +39,7 @@ public class EmpresaTest {
 
 	@Before
 	public void setUp() {
-		String nome = "Contmatic";
-		String cnpj = "50931090000102";
-		empresa = new Empresa(nome, cnpj);
+		empresa = new Empresa("Contmatic", "50931090000102");
 		empresa.setDataAlteracao(DateTime.parse("2020-12-05"));
 		empresa.setDataCadastro(DateTime.parse("2020-12-05"));
 		empresa.setCriadoPor("jessica");
@@ -52,16 +50,19 @@ public class EmpresaTest {
 
 	@Before
 	public void setUp_endereco() {
-		empresa.setEndereco(new Endereco("Avenida", 1, "Tatuape", "01234567"));
+		empresa.setEndereco(new Endereco(1, "01234567"));
 	}
 
 	@Before
 	public void setUp_funcionarios() {
 		funcionarios = new ArrayList<Funcionario>();
-		Funcionario funcionario1 = new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1500.00), "Vendedora");
-		Funcionario funcionario2 = new Funcionario("João Santos", "78753312007", BigDecimal.valueOf(1500.00), "Vendedor");
+		Funcionario funcionario1 = new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1500.00),
+				"Vendedora");
+		Funcionario funcionario2 = new Funcionario("João Santos", "78753312007", BigDecimal.valueOf(1500.00),
+				"Vendedor");
 		funcionarios.add(funcionario1);
 		funcionarios.add(funcionario2);
+		empresa.setFuncionarios(funcionarios);
 	}
 
 	@Before
@@ -71,37 +72,16 @@ public class EmpresaTest {
 		Produto produto02 = new Produto("Calça", "Camaleon", BigDecimal.valueOf(79.99), 3466L);
 		produtos.add(produto01);
 		produtos.add(produto02);
-	}
-
-	@Test
-	public void should_return_true_to_nome_not_null() {
-		assertNotNull(empresa.getNome());
-	}
-
-	@Test
-	public void should_return_true_to_cnpj_not_null() {
-		assertNotNull(empresa.getCnpj());
-	}
-
-	@Test
-	public void should_return_true_to_endereco_not_null() {
-		assertNotNull(empresa.getEndereco());
-	}
-
-	@Test
-	public void should_return_true_to_funcionarios_not_null() {
-		empresa.setFuncionarios(funcionarios);
-		assertNotNull(empresa.getFuncionarios());
-	}
-
-	@Test
-	public void should_return_true_to_produtos_not_null() {
 		empresa.setProdutos(produtos);
-		assertNotNull(empresa.getProdutos());
 	}
-	
+
 	@Test
-	public void should_return_true_to_auditoria_is_not_null() {
+	public void should_return_true_to_not_null() {
+		assertNotNull(empresa.getNome());
+		assertNotNull(empresa.getCnpj());
+		assertNotNull(empresa.getEndereco());
+		assertNotNull(empresa.getFuncionarios());
+		assertNotNull(empresa.getProdutos());
 		assertNotNull(empresa.getDataAlteracao());
 		assertNotNull(empresa.getDataCadastro());
 		assertNotNull(empresa.getCriadoPor());
@@ -132,13 +112,13 @@ public class EmpresaTest {
 
 	@Test
 	public void should_return_true_to_correct_input_endereco() {
-		Endereco endereco = new Endereco("Avenida", 1, "Tatuape", "01234567");
+		Endereco endereco = new Endereco(1, "01234567");
 		assertThat(empresa.getEndereco(), is(endereco));
 	}
 
 	@Test
 	public void should_return_false_to_wrong_input_endereco() {
-		Endereco endereco = new Endereco("Avenida", 1, "Tatuape", "01212888");
+		Endereco endereco = new Endereco(1, "01212888");
 		assertThat(empresa.getEndereco(), not(endereco));
 	}
 
@@ -220,26 +200,26 @@ public class EmpresaTest {
 	public void should_return_a_exception_to_empty_nome() {
 		empresa.setNome(" ");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
 		empresa.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
 	}
-	
+
 	public void should_return_a_exception_when_cpf_is_null() {
 		empresa.setCnpj(null);
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_a_sequence_with_the_same_algoritmo() {
 		empresa.setCnpj("33333333333333");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_invalid() {
 		empresa.setCnpj("12345678901234");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_empty() {
 		empresa.setCnpj(" ");
@@ -249,7 +229,7 @@ public class EmpresaTest {
 	public void should_return_a_exception_to_endereco_null() {
 		empresa.setEndereco(null);
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_to_funcionarios_null() {
 		empresa.setFuncionarios(null);

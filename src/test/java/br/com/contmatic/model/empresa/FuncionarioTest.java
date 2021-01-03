@@ -41,27 +41,11 @@ public class FuncionarioTest {
 	}
 
 	@Test
-	public void should_return_true_to_nome_not_null() {
+	public void should_return_true_to_not_null() {
 		assertNotNull(funcionario.getNome());
-	}
-
-	@Test
-	public void should_return_true_to_salario_not_null() {
 		assertNotNull(funcionario.getSalario());
-	}
-
-	@Test
-	public void should_return_true_to_cargo_is_not_null() {
 		assertNotNull(funcionario.getCargo());
-	}
-
-	@Test
-	public void should_return_true_to_cpf_is_not_null() {
 		assertNotNull(funcionario.getCPF());
-	}
-
-	@Test
-	public void should_return_true_to_auditoria_is_not_null() {
 		assertNotNull(funcionario.getDataAlteracao());
 		assertNotNull(funcionario.getDataCadastro());
 		assertNotNull(funcionario.getCriadoPor());
@@ -188,37 +172,37 @@ public class FuncionarioTest {
 	public void should_return_a_exception_when_name_is_empty() {
 		funcionario.setNome("  ");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_name_has_more_than_60_caracters() {
 		funcionario.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_cpf_is_null() {
 		funcionario.setCPF(null);
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_a_sequence_with_the_same_algoritmo() {
 		funcionario.setCPF("22222222222");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_invalid() {
 		funcionario.setCPF("12345678901");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cpf_is_empty() {
 		funcionario.setCPF(" ");
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_salario_is_null() {
 		funcionario.setSalario(null);
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_salario_is_less_than_0() {
 		funcionario.setSalario(new BigDecimal("-50.00"));
@@ -233,7 +217,7 @@ public class FuncionarioTest {
 	public void should_return_a_exception_when_cargo_is_empty() {
 		funcionario.setCargo("  ");
 	}
-	
+
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_cargo_has_more_than_60_caracters() {
 		funcionario.setCargo("cargo maior do que sessenta caracteres. Cargo maior do que sessenta caracteres");
