@@ -63,33 +63,17 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void should_return_true_to_correct_input_nome() {
+	public void should_return_true_to_correct_inputs() {
 		assertThat(cliente.getNome(), is("João Santos"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_nome() {
-		assertThat(cliente.getNome(), not("João Silva"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_cpf() {
 		assertThat(cliente.getCpf(), is("47561448880"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_cpf() {
-		assertThat(cliente.getCpf(), not("55561448880"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_endereco() {
 		Endereco endereco = new Endereco(07, "12345678");
 		assertThat(cliente.getEndereco(), is(endereco));
 	}
 
 	@Test
-	public void should_return_false_to_wrong_input_endereco() {
+	public void should_return_false_to_wrong_inputs() {
+		assertThat(cliente.getNome(), not("João Silva"));
+		assertThat(cliente.getCpf(), not("55561448880"));
 		Endereco endereco = new Endereco(07, "12121888");
 		assertThat(cliente.getEndereco(), not(endereco));
 	}
@@ -174,17 +158,10 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void should_return_true_if_tostring_contains_cliente() {
+	public void should_return_true_if_tostring_contains_cliente_and_cpf_and_endereco() {
 		assertThat(cliente.toString(), containsString("Cliente"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_cpf() {
 		assertThat(cliente.toString(), containsString("cpf"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_endereco() {
 		assertThat(cliente.toString(), containsString("Endereco"));
 	}
+
 }

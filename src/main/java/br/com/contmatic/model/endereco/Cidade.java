@@ -18,7 +18,7 @@ public class Cidade {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -29,7 +29,7 @@ public class Cidade {
 	}
 
 	public Estado getEstado() {
-		return estado;
+		return this.estado;
 	}
 
 	public void setEstado(Estado estado) {
@@ -41,8 +41,8 @@ public class Cidade {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((this.estado == null) ? 0 : this.estado.hashCode());
+		result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
 		return result;
 	}
 
@@ -55,16 +55,16 @@ public class Cidade {
 		if (getClass() != obj.getClass())
 			return false;
 		Cidade other = (Cidade) obj;
-		if (estado == null) {
+		if (this.estado == null) {
 			if (other.estado != null)
 				return false;
-		} else if (!estado.equals(other.estado)) {
+		} else if (!this.estado.equals(other.estado)) {
 			return false;
 		}
-		if (nome == null) {
+		if (this.nome == null) {
 			if (other.nome != null)
 				return false;
-		} else if (!nome.equals(other.nome)) {
+		} else if (!this.nome.equals(other.nome)) {
 			return false;
 		}
 		return true;
@@ -73,7 +73,7 @@ public class Cidade {
 	@Override
 	public String toString() {
 		StringBuilder cidadeFields = new StringBuilder();
-		cidadeFields.append("Cidade [nome=").append(nome).append(", estado=").append(estado).append("]");
+		cidadeFields.append("Cidade [nome=").append(this.nome).append(", estado=").append(this.estado).append("]");
 		return cidadeFields.toString();
 	}
 

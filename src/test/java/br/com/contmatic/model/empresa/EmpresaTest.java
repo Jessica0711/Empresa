@@ -39,40 +39,22 @@ public class EmpresaTest {
 
 	@Before
 	public void setUp() {
-		empresa = new Empresa("Contmatic", "50931090000102");
-		empresa.setDataAlteracao(DateTime.parse("2020-12-05"));
-		empresa.setDataCadastro(DateTime.parse("2020-12-05"));
-		empresa.setCriadoPor("jessica");
-		empresa.setIpCriadoPor("127.0.0.1");
-		empresa.setUltimaModificacao("jessica");
-		empresa.setIpUltimaModificacao("127.0.0.1");
-	}
-
-	@Before
-	public void setUp_endereco() {
-		empresa.setEndereco(new Endereco(1, "01234567"));
-	}
-
-	@Before
-	public void setUp_funcionarios() {
+		this.empresa = new Empresa("Contmatic", "50931090000102");
+		this.empresa.setDataAlteracao(DateTime.parse("2020-12-05"));
+		this.empresa.setDataCadastro(DateTime.parse("2020-12-05"));
+		this.empresa.setCriadoPor("jessica");
+		this.empresa.setIpCriadoPor("127.0.0.1");
+		this.empresa.setUltimaModificacao("jessica");
+		this.empresa.setIpUltimaModificacao("127.0.0.1");
+		this.empresa.setEndereco(new Endereco(1, "01234567"));
 		funcionarios = new ArrayList<Funcionario>();
-		Funcionario funcionario1 = new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1500.00),
-				"Vendedora");
-		Funcionario funcionario2 = new Funcionario("João Santos", "78753312007", BigDecimal.valueOf(1500.00),
-				"Vendedor");
-		funcionarios.add(funcionario1);
-		funcionarios.add(funcionario2);
-		empresa.setFuncionarios(funcionarios);
-	}
-
-	@Before
-	public void setUp_produtos() {
+		funcionarios.add(new Funcionario("Maria Silva", "30564609056", BigDecimal.valueOf(1500.00), "Vendedora"));
+		funcionarios.add(new Funcionario("João Santos", "78753312007", BigDecimal.valueOf(1500.00), "Vendedor"));
+		this.empresa.setFuncionarios(funcionarios);
 		produtos = new ArrayList<Produto>();
-		Produto produto01 = new Produto("Shorts", "Camaleon", BigDecimal.valueOf(59.99), 3544L);
-		Produto produto02 = new Produto("Calça", "Camaleon", BigDecimal.valueOf(79.99), 3466L);
-		produtos.add(produto01);
-		produtos.add(produto02);
-		empresa.setProdutos(produtos);
+		produtos.add(new Produto("Camaleon", 3544L));
+		produtos.add(new Produto("Camaleon", 3466L));
+		this.empresa.setProdutos(produtos);
 	}
 
 	@Test
@@ -91,58 +73,22 @@ public class EmpresaTest {
 	}
 
 	@Test
-	public void should_return_true_to_correct_input_nome() {
+	public void should_return_true_to_correct_inputs() {
 		assertThat(empresa.getNome(), is("Contmatic"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_nome() {
-		assertThat(empresa.getNome(), not("Softmatic"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_cnpj() {
 		assertThat(empresa.getCnpj(), is("50931090000102"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_cnpj() {
-		assertThat(empresa.getCnpj(), not(is("123456788")));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_endereco() {
 		Endereco endereco = new Endereco(1, "01234567");
 		assertThat(empresa.getEndereco(), is(endereco));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_endereco() {
-		Endereco endereco = new Endereco(1, "01212888");
-		assertThat(empresa.getEndereco(), not(endereco));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_funcionarios() {
-		empresa.setFuncionarios(funcionarios);
 		assertTrue(empresa.getFuncionarios().equals(funcionarios));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_funcionarios() {
-		empresa.setFuncionarios(funcionarios);
-		assertFalse(empresa.getFuncionarios().equals(produtos));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_produtos() {
-		empresa.setProdutos(produtos);
 		assertTrue(empresa.getProdutos().equals(produtos));
 	}
 
 	@Test
-	public void should_return_false_to_wrong_input_produtos() {
-		empresa.setProdutos(produtos);
+	public void should_return_false_to_wrong_inputs() {
+		assertThat(empresa.getNome(), not("Softmatic"));
+		assertThat(empresa.getCnpj(), not(is("123456788")));
+		Endereco endereco = new Endereco(1, "01212888");
+		assertThat(empresa.getEndereco(), not(endereco));
+		assertFalse(empresa.getFuncionarios().equals(produtos));
 		assertFalse(empresa.getProdutos().equals(funcionarios));
 	}
 
@@ -206,6 +152,7 @@ public class EmpresaTest {
 		empresa.setNome("nome maior do que sessenta caracteres. Nome maior do que sessenta caracteres");
 	}
 
+	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_cpf_is_null() {
 		empresa.setCnpj(null);
 	}
@@ -235,28 +182,24 @@ public class EmpresaTest {
 		empresa.setFuncionarios(null);
 	}
 
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_to_funcionarios_is_empty() {
+		List<Funcionario> funcionarios = new ArrayList<>();
+		empresa.setFuncionarios(funcionarios);
+	}
+
+	@Test(expected = IllegalStateException.class)
+	public void should_return_a_exception_to_produtos_is_empty() {
+		List<Produto> produtos = new ArrayList<>();
+		empresa.setProdutos(produtos);
+	}
+
 	@Test
-	public void should_return_true_if_tostring_contains_empresa() {
+	public void should_return_true_if_tostring_contains_all_the_fields() {
 		assertThat(empresa.toString(), containsString("Empresa"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_cnpj() {
 		assertThat(empresa.toString(), containsString("cnpj"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_endereco() {
 		assertThat(empresa.toString(), containsString("endereco"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_funcionarios() {
 		assertThat(empresa.toString(), containsString("funcionarios"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_produtos() {
 		assertThat(empresa.toString(), containsString("produtos"));
 	}
 

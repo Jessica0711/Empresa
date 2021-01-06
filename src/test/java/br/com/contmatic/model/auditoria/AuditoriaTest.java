@@ -1,6 +1,8 @@
 package br.com.contmatic.model.auditoria;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 import org.joda.time.DateTime;
 import org.junit.After;
@@ -97,5 +99,11 @@ public class AuditoriaTest {
 	@Test(expected = IllegalStateException.class)
 	public void should_return_a_exception_when_ipUltimaModificacao_is_empty() {
 		auditoria.setIpUltimaModificacao("");
+	}
+	
+	@Test
+	public void should_return_true_if_tostring_contains_all_the_fields() {
+		assertThat(this.auditoria.toString(), containsString("127.0.0.1"));
+		assertThat(this.auditoria.toString(), containsString("jessica"));
 	}
 }

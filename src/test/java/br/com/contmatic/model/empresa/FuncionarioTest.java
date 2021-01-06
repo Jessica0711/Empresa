@@ -55,38 +55,18 @@ public class FuncionarioTest {
 	}
 
 	@Test
-	public void shuld_return_true_to_correct_input_nome() {
+	public void shuld_return_true_to_correct_inputs() {
 		assertThat(funcionario.getNome(), is("Maria Silva"));
-	}
-
-	@Test
-	public void shuld_return_false_to_wrong_input_nome() {
-		assertThat(funcionario.getNome(), not("Maria Santos"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_salario() {
 		assertTrue(funcionario.getSalario().compareTo(BigDecimal.valueOf(1500.00)) == 0);
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_salario() {
-		assertFalse(funcionario.getSalario().compareTo(BigDecimal.valueOf(1550.00)) == 0);
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_cargo() {
 		assertThat(funcionario.getCargo(), is("Vendedora"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_cargo() {
-		assertThat(funcionario.getCargo(), not("Gerente"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_cpf() {
 		assertThat(funcionario.getCPF(), is("47561448880"));
+	}
+
+	@Test
+	public void shuld_return_false_to_wrong_inputs() {
+		assertThat(funcionario.getNome(), not("Maria Santos"));
+		assertFalse(funcionario.getSalario().compareTo(BigDecimal.valueOf(1550.00)) == 0);
+		assertThat(funcionario.getCargo(), not("Gerente"));
 	}
 
 	@Test
@@ -128,22 +108,10 @@ public class FuncionarioTest {
 	}
 
 	@Test
-	public void should_return_true_if_tostring_contains_nome() {
+	public void should_return_true_if_tostring_contains_all_the_fields() {
 		assertThat(funcionario.toString(), containsString("Funcionario(a)"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_cpf() {
 		assertThat(funcionario.toString(), containsString("CPF"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_cargo() {
 		assertThat(funcionario.toString(), containsString("cargo"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_salario() {
 		assertThat(funcionario.toString(), containsString("salario"));
 	}
 

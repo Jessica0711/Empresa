@@ -44,3 +44,6 @@ target/classes/br/com/contmatic/model/validacao/ValidacaoCPF.class
 target/classes/br/com/contmatic/model/endereco/Cidade.class
 target/classes/br/com/contmatic/model/endereco/Estado.class
 target/classes/br/com/contmatic/model/endereco/Pais.class
+target/test-classes/br/com/contmatic/model/endereco/CidadeTest.class
+target/test-classes/br/com/contmatic/model/endereco/EstadoTest.class
+target/test-classes/br/com/contmatic/model/endereco/PaisTest.class

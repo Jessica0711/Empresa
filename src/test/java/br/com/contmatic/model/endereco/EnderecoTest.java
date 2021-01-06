@@ -63,52 +63,20 @@ public class EnderecoTest {
 	}
 
 	@Test
-	public void should_return_true_to_correct_input_rua() {
+	public void should_return_true_to_correct_inputs() {
 		assertThat(endereco.getRua(), is("Avenida"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_rua() {
-		assertThat(endereco.getRua(), not("Rua um"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_numero() {
 		assertThat(endereco.getNumero(), is(1));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_numero() {
-		assertThat(endereco.getNumero(), not(2));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_bairro() {
 		assertThat(endereco.getBairro(), is("Tatuapé"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_bairro() {
-		assertThat(endereco.getBairro(), not("Rio de Janeiro"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_cep() {
 		assertThat(endereco.getCep(), is("01234567"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_cep() {
-		assertThat(endereco.getCep(), not("43210765"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_complemento() {
 		assertThat(endereco.getComplemento(), is("Apt 07"));
 	}
 
 	@Test
-	public void should_return_false_to_wrong_input_complemento() {
+	public void should_return_false_to_wrong_inputs() {
+		assertThat(endereco.getRua(), not("Rua um"));
+		assertThat(endereco.getNumero(), not(2));
+		assertThat(endereco.getBairro(), not("Rio de Janeiro"));
+		assertThat(endereco.getCep(), not("43210765"));
 		assertThat(endereco.getComplemento(), not("Apt 08"));
 	}
 
@@ -236,27 +204,12 @@ public class EnderecoTest {
 	}
 
 	@Test
-	public void should_return_true_if_tostring_contains_rua() {
+	public void should_return_true_if_tostring_contains_all_the_fields() {
 		assertThat(endereco.toString(), containsString("Avenida"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_numero() {
 		assertThat(endereco.toString(), containsString("1"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_bairro() {
 		assertThat(endereco.toString(), containsString("bairro"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_cep() {
 		assertThat(endereco.toString(), containsString("cep"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_complemento() {
 		assertThat(endereco.toString(), containsString("complemento"));
 	}
+
 }

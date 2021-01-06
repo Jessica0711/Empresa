@@ -13,7 +13,7 @@ public class Pais {
 	}
 
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
@@ -21,6 +21,39 @@ public class Pais {
 		validarCampoVazio(nome, "Nome", "País");
 		validarTamanho(1, 80, nome, "Nome", "País");
 		this.nome = nome;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.nome == null) ? 0 : this.nome.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pais other = (Pais) obj;
+		if (this.nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!this.nome.equals(other.nome)) {
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder paisFields = new StringBuilder();
+		paisFields.append("Pais [nome=").append(this.nome).append("]");
+		return paisFields.toString();
 	}
 
 }

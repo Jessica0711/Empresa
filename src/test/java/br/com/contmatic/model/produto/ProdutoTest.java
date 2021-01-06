@@ -53,42 +53,18 @@ public class ProdutoTest {
 	}
 
 	@Test
-	public void should_return_true_to_correct_input_nome() {
+	public void should_return_true_to_correct_inputs() {
 		assertThat(produto.getNome(), is("Shorts"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_nome() {
-		assertThat(produto.getNome(), not("Camiseta"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_marca() {
 		assertThat(produto.getMarca(), is("Camaleon"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_marca() {
-		assertThat(produto.getMarca(), not("2KB"));
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_preco() {
 		assertTrue(produto.getPreco().compareTo(BigDecimal.valueOf(39.99)) == 0);
-	}
-
-	@Test
-	public void should_return_false_to_wrong_input_preco() {
-		assertFalse(produto.getPreco().compareTo(BigDecimal.valueOf(40.00)) == 0);
-	}
-
-	@Test
-	public void should_return_true_to_correct_input_codigoProduto() {
 		assertTrue(produto.getCodigo() == (3444));
 	}
 
 	@Test
-	public void should_return_false_to_wrong_input_codigoProduto() {
+	public void should_return_false_to_wrong_inputs() {
+		assertThat(produto.getNome(), not("Camiseta"));
+		assertThat(produto.getMarca(), not("2KB"));
+		assertFalse(produto.getPreco().compareTo(BigDecimal.valueOf(40.00)) == 0);
 		assertThat(produto.getCodigo(), not(3445));
 	}
 
@@ -133,22 +109,10 @@ public class ProdutoTest {
 	}
 
 	@Test
-	public void should_return_true_if_tostring_contains_nome() {
+	public void should_return_true_if_tostring_contains_all_the_fields() {
 		assertThat(produto.toString(), containsString("Produto"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_marca() {
 		assertThat(produto.toString(), containsString("marca"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_codigo() {
 		assertThat(produto.toString(), containsString("codigo"));
-	}
-
-	@Test
-	public void should_return_true_if_tostring_contains_preco() {
 		assertThat(produto.toString(), containsString("preco"));
 	}
 
