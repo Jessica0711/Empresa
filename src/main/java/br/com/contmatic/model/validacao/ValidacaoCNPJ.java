@@ -16,6 +16,10 @@ public class ValidacaoCNPJ {
 	public static boolean isCNPJ(String cnpj) {
 		verificarTamanhoCNPJ(cnpj);
 		verificarContemSequenciaComMesmoNumero(cnpj);
+		return verificarDigitosCnpj(cnpj);
+	}
+
+	private static boolean verificarDigitosCnpj(String cnpj) {
 		try {
 			char dig13 = calcularDigitoCnpj(cnpj, 11);
 			char dig14 = calcularDigitoCnpj(cnpj, 12);

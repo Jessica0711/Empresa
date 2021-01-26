@@ -16,6 +16,10 @@ public class ValidacaoCPF {
 	private static boolean isCPF(String cpf) {
 		verificarTamanhoCPF(cpf);
 		possuiSequenciaComMesmoNumero(cpf);
+		return verificarDigitosCpf(cpf);
+	}
+
+	private static boolean verificarDigitosCpf(String cpf) {
 		try {
 			char dig10 = calcularDigitoCPF(10, cpf, 9);
 			char dig11 = calcularDigitoCPF(11, cpf, 10);
