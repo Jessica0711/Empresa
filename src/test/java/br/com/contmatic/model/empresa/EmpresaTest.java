@@ -2,7 +2,6 @@ package br.com.contmatic.model.empresa;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -80,16 +79,6 @@ public class EmpresaTest {
 		assertThat(empresa.getEndereco(), is(endereco));
 		assertTrue(empresa.getFuncionarios().equals(funcionarios));
 		assertTrue(empresa.getProdutos().equals(produtos));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_inputs() {
-		assertThat(empresa.getNome(), not("Softmatic"));
-		assertThat(empresa.getCnpj(), not(is("123456788")));
-		Endereco endereco = new Endereco(1, "01212888");
-		assertThat(empresa.getEndereco(), not(endereco));
-		assertFalse(empresa.getFuncionarios().equals(produtos));
-		assertFalse(empresa.getProdutos().equals(funcionarios));
 	}
 
 	@Test

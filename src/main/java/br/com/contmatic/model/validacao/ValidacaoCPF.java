@@ -2,7 +2,7 @@ package br.com.contmatic.model.validacao;
 
 import java.util.InputMismatchException;
 
-public class ValidacaoCPF {
+public final class ValidacaoCPF {
 
 	private ValidacaoCPF() {
 	}
@@ -46,17 +46,17 @@ public class ValidacaoCPF {
 
 	private static char calcularDigitoCPF(int peso, String cpf, int charPosition) {
 		int r = 11 - (calcularSomaCPF(peso, cpf, charPosition) % 11);
-		if ((r == 10) || (r == 11))
+		if ((r == 10) || (r == 11)) {
 			return '0';
-		else
+		} else {
 			return (char) (r + 48);
+		}
 	}
 
 	private static int calcularSomaCPF(int peso, String cpf, int charPosition) {
 		int sm = 0;
 		int num;
 		for (int i = 0; i < charPosition; i++) {
-
 			num = (cpf.charAt(i) - 48);
 			sm = sm + (num * peso);
 			peso = peso - 1;

@@ -2,7 +2,6 @@ package br.com.contmatic.model.produto;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -58,14 +57,6 @@ public class ProdutoTest {
 		assertThat(produto.getMarca(), is("Camaleon"));
 		assertTrue(produto.getPreco().compareTo(BigDecimal.valueOf(39.99)) == 0);
 		assertTrue(produto.getCodigo() == (3444));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_inputs() {
-		assertThat(produto.getNome(), not("Camiseta"));
-		assertThat(produto.getMarca(), not("2KB"));
-		assertFalse(produto.getPreco().compareTo(BigDecimal.valueOf(40.00)) == 0);
-		assertThat(produto.getCodigo(), not(3445));
 	}
 
 	@Test

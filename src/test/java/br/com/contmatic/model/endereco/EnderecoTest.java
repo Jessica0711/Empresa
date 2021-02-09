@@ -2,7 +2,6 @@ package br.com.contmatic.model.endereco;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -69,15 +68,6 @@ public class EnderecoTest {
 		assertThat(endereco.getBairro(), is("Tatuapé"));
 		assertThat(endereco.getCep(), is("01234567"));
 		assertThat(endereco.getComplemento(), is("Apt 07"));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_inputs() {
-		assertThat(endereco.getRua(), not("Rua um"));
-		assertThat(endereco.getNumero(), not(2));
-		assertThat(endereco.getBairro(), not("Rio de Janeiro"));
-		assertThat(endereco.getCep(), not("43210765"));
-		assertThat(endereco.getComplemento(), not("Apt 08"));
 	}
 
 	@Test

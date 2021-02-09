@@ -2,7 +2,6 @@ package br.com.contmatic.model.empresa;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -34,8 +33,7 @@ public class ClienteTest {
 
 	@Before
 	public void setUp() {
-		Endereco endereco = new Endereco(07, "12345678");
-		cliente = new Cliente("João Santos", "47561448880", endereco);
+		cliente = new Cliente("João Santos", "47561448880", new Endereco(07, "12345678"));
 		cliente.setDataAlteracao(DateTime.parse("2020-12-05"));
 		cliente.setDataCadastro(DateTime.parse("2020-12-05"));
 		cliente.setCriadoPor("jessica");
@@ -68,14 +66,6 @@ public class ClienteTest {
 		assertThat(cliente.getCpf(), is("47561448880"));
 		Endereco endereco = new Endereco(07, "12345678");
 		assertThat(cliente.getEndereco(), is(endereco));
-	}
-
-	@Test
-	public void should_return_false_to_wrong_inputs() {
-		assertThat(cliente.getNome(), not("João Silva"));
-		assertThat(cliente.getCpf(), not("55561448880"));
-		Endereco endereco = new Endereco(07, "12121888");
-		assertThat(cliente.getEndereco(), not(endereco));
 	}
 
 	@Test

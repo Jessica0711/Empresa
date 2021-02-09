@@ -2,7 +2,7 @@ package br.com.contmatic.model.validacao;
 
 import java.util.InputMismatchException;
 
-public class ValidacaoCNPJ {
+public final class ValidacaoCNPJ {
 
 	private ValidacaoCNPJ() {
 	}
@@ -46,10 +46,11 @@ public class ValidacaoCNPJ {
 
 	private static char calcularDigitoCnpj(String cnpj, int posicaoCharFim) {
 		int r = calcularSomaCNPJ(cnpj, posicaoCharFim) % 11;
-		if ((r == 0) || (r == 1))
+		if ((r == 0) || (r == 1)) {
 			return '0';
-		else
+		} else {
 			return (char) ((11 - r) + 48);
+		}
 	}
 
 	private static int calcularSomaCNPJ(String cnpj, int posicaoCharFim) {

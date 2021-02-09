@@ -47,7 +47,6 @@ public class CidadeTest {
 	@Test
 	public void should_return_true_to_correct_input() {
 		assertThat(this.cidade.getNome(), is("São Paulo"));
-		assertThat(this.cidade.getEstado().getNome(), is("São Paulo"));
 	}
 
 	@Test
@@ -84,7 +83,7 @@ public class CidadeTest {
 	public void should_return_false_when_equals_compare_class_with_other_object() {
 		assertFalse(this.cidade.equals(new Object()));
 	}
-	
+
 	@Test
 	public void should_return_false_when_equals_compare_class_with_a_pais_with_different_nome() {
 		Cidade outroCidade = new Cidade("Campinas", new Estado("São Paulo", new Pais("Brasil")));
@@ -110,7 +109,7 @@ public class CidadeTest {
 	public void should_return_a_exception_when_nome_has_more_than_80_caracters() {
 		this.cidade.setNome("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void should_return_a_exception_when_estado_is_null() {
 		this.cidade.setEstado(null);

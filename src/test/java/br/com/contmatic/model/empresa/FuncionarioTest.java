@@ -2,7 +2,6 @@ package br.com.contmatic.model.empresa;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -60,13 +59,6 @@ public class FuncionarioTest {
 		assertTrue(funcionario.getSalario().compareTo(BigDecimal.valueOf(1500.00)) == 0);
 		assertThat(funcionario.getCargo(), is("Vendedora"));
 		assertThat(funcionario.getCPF(), is("47561448880"));
-	}
-
-	@Test
-	public void shuld_return_false_to_wrong_inputs() {
-		assertThat(funcionario.getNome(), not("Maria Santos"));
-		assertFalse(funcionario.getSalario().compareTo(BigDecimal.valueOf(1550.00)) == 0);
-		assertThat(funcionario.getCargo(), not("Gerente"));
 	}
 
 	@Test
